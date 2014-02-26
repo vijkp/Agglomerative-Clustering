@@ -1,0 +1,79 @@
+%\documentclass[12pt,letterpaper,titlepage]{article}
+\documentclass[12pt,letterpaper, one-sided]{article}
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{changepage}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Edit these as appropriate
+\newcommand\course{Database Design and Implementation}
+\newcommand\semester{Spring 2014}     % <-- current semester
+\newcommand\yourname{Vijay Kumar Pasikanti} % <-- y	our name
+\newcommand\testname{Project Proposal}
+\newcommand{\ttt}[1]{\textit{#1}}
+
+\newenvironment{answer}[1]{
+  \subsection*{#1}
+}
+
+\newenvironment{subanswer}[1]{
+  \subsubsection*{#1}
+}
+
+\begin{document}
+\title{\large{\textbf{\Large\course}\\ \semester \\\textbf{\testname}}}
+\author{\textbf{Submitted by:} \\ \yourname, Ashish Jain}
+\maketitle
+
+\begin{answer}{Problem statement:}
+	\begin{enumerate}
+	\item
+	Performance evaluation of a clustering algorithm(?) on two different database systems.
+	\item
+	System scalability evaluation on varying magnitude of dataset size.
+	\item
+	Data used is generated using a synthetic graph generators during testing and evaluation, along with a social networks data from google+.
+	\item
+	Evaluation: 
+		\begin{enumerate}
+		\item
+		Accuracy of the algorithm on varying data size with respect to each database system.
+		\item
+		Average system runtime of the algorithm per dataset with respect to each database system.
+		\item
+		Max/avg memory consumption per dataset with respect to each database system.
+		\end{enumerate}
+	\end{enumerate}
+\end{answer}
+
+\begin{answer}{Goal and motivation:}
+
+\end{answer}
+
+\begin{answer}{Related work survey:}
+
+\end{answer}
+
+\begin{answer}{Milestones:}	
+	\begin{enumerate}
+	\item
+	System setup
+	\item
+	Algorithm implementation
+	\item
+	Evaluation on synthetic data
+	\item
+	Evaluation on google+ data
+	\end{enumerate}
+\end{answer}
+
+\begin{answer}{References:}
+	\begin{enumerate}
+	\item
+	Paper1
+	\item
+	Paper2
+	\end{enumerate}
+\end{answer}
+
+\end{document}          
