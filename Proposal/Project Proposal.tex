@@ -13,7 +13,7 @@
 \newcommand{\ttt}[1]{\textit{#1}}
 
 \newenvironment{answer}[1]{
-  \subsection*{#1}
+  \subsection*	{#1}
 }
 
 \newenvironment{subanswer}[1]{
@@ -26,53 +26,83 @@
 \maketitle
 
 \begin{answer}{Problem statement:}
-	\begin{enumerate}
-	\item
-	Performance evaluation of a clustering algorithm(?) on two different database systems.
-	\item
-	System scalability evaluation on varying magnitude of dataset size.
-	\item
-	Data used is generated using a synthetic graph generators during testing and evaluation, along with a social networks data from google+.
-	\item
-	Evaluation: 
-		\begin{enumerate}
-		\item
-		Accuracy of the algorithm on varying data size with respect to each database system.
-		\item
-		Average system runtime of the algorithm per dataset with respect to each database system.
-		\item
-		Max/avg memory consumption per dataset with respect to each database system.
-		\end{enumerate}
-	\end{enumerate}
+In this project, we are presenting a comprehensive study to compare graph databases performance on a graph clustering algorithm. The data will be generated through synthetic graph data generators. We have specified this generator in the last section of proposal.
 \end{answer}
 
 \begin{answer}{Goal and motivation:}
-
+Graph data management has been receiving a lot of attention with the arrival of various social networks like facebook, twitter, google+ etc. All these networks have their data stored in some or the other form of graph database, which can scale up to billions of nodes. Graph databases process relationship information between nodes and their efficiency running queries making Relational databases obsolete. Social networks are flooded with online communities, which are formed based on some similarity between the users.
+\\\\
+However, there is no comprehensive study to measure performance of community detection algorithms in the context of various graph databases.
+\\\\
+Therefore, we have two motivations for doing this project:
+	\begin{enumerate}
+	\item
+	Clustering a synthetic social network graph on graph databases to detect network communities. For accomplishing this task, we will be implementing standard agglomerative clustering with various cluster quality measures to form clusters.
+	\item
+	We will do the performance evaluation of graph databases in terms of time of execution and memory usage for the clustering algorithm. It will provide a benchmark for future users and an opportunity to select the appropriate graph database based on how its performance metrics.
+	\item 
+	We also would like to study the scalability of graph databases as data grows in orders of magnitude using clustering as the task.
+	\end{enumerate}
+In one of the benchmarking task [8], author has compared performance of Page Rank and Shortest Paths on graph database and relational database. Therefore our proposal is novel in terms of task compared.
 \end{answer}
 
-\begin{answer}{Related work survey:}
+\begin{answer}{Ambitious goal:}
+	If time permits, we plan to implement and evaluate our algorithm on PEGASUS: A peta-scale graph mining system.
+\end{answer}
+
+\begin{answer}{Survery of related work:}
+Hierarchical clustering algorithm has been studied([1][2][3]) for over decades now. Also there have been many of its successful implementations for various applications([4][5]). In addition to that, many researchers have evaluated different types of hierarchical algorithms (list of algo survey papers) but most of the results were presented on smaller datasets. As the data sizes grow for network graphs these algorithms are implemented on graph databases and there is a very little literature ([6]) on the implementation and evaluation of these clustering algorithms on large datasets using graph database systems. The goal of the project is to study the performance of graph database systems running clustering algorithms on large datasets. 
 
 \end{answer}
 
 \begin{answer}{Milestones:}	
 	\begin{enumerate}
 	\item
-	System setup
+	Dataset generation - 03/03
 	\item
-	Algorithm implementation
+	Graph database understanding and hands on: 03/07
 	\item
-	Evaluation on synthetic data
+	System setup: 03/12
 	\item
-	Evaluation on google+ data
+	Clustering Algorithm implementation and testing on 1st database system: 03/24 
+	\item
+	Testing on the 1st database: 03/30
+	\item
+	Clustering Algorithm on 2nd database system: 4/10
+	\item
+	Complete evaluation: 4/20
 	\end{enumerate}
+\end{answer}
+
+\begin{answer}{System:}
+	\begin{itemize}
+	\item
+	\textbf{Graph Databases}: Neo4j, GraphLab
+	\item
+	\textbf{Datasets}: NetworkX[9], a Python language software package for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks.
+	\end{itemize}
 \end{answer}
 
 \begin{answer}{References:}
 	\begin{enumerate}
 	\item
-	Paper1
+	William H. E. Day, Herbert Edelsbrunner "Efficient algorithms for agglomerative hierarchical clustering methods"
 	\item
-	Paper2
+	Chris Fraley "Algorithms for model-based Gaussian hierarchical clustering"
+	\item
+	CF Olson "Parallel algorithms for hierarchical clustering"
+	\item
+	M Steinbach, G Karypis, V Kumar "A comparison of document clustering techniques"
+	\item
+	Y Zhao, G Karypis "Evaluation of hierarchical clustering algorithms for document datasets"
+	\item
+	S Guha, R Rastogi, K Shim "CURE: an efficient clustering algorithm for large databases"
+	\item
+	J. McAuley and J. Leskovec. "Learning to Discover Social Circles in Ego Networks"
+	\item
+	http://istc-bigdata.org/index.php/benchmarking-graph-databases/
+	\item
+	http://networkx.github.io
 	\end{enumerate}
 \end{answer}
 
