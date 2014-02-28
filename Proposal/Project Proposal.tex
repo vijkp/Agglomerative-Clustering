@@ -22,28 +22,28 @@
 
 \begin{document}
 \title{\large{\textbf{\Large\course}\\ \semester \\\textbf{\testname}}}
-\author{\textbf{Submitted by:} \\ \yourname, Ashish Jain}
+\author{\textbf{Submitted by:} \\ \yourname, Ashish Jain\\\{vijaykp,ashishjain\}@cs.umass.edu}
 \maketitle
 
 \begin{answer}{Problem statement:}
-In this project, we are presenting a comprehensive study to compare graph databases performance on a graph clustering algorithm. The data will be generated through synthetic graph data generators. We have specified this generator in the last section of proposal.
+In this project, we are presenting a comprehensive study of performance of graph databases on a graph clustering algorithm. The data will be generated through a synthetic graph data generator[9]. We have specified this generator in the last section of proposal.
 \end{answer}
 
-\begin{answer}{Goal and motivation:}
-Graph data management has been receiving a lot of attention with the arrival of various social networks like facebook, twitter, google+ etc. All these networks have their data stored in some or the other form of graph database, which can scale up to billions of nodes. Graph databases process relationship information between nodes and their efficiency running queries making Relational databases obsolete. Social networks are flooded with online communities, which are formed based on some similarity between the users.
+\begin{answer}{Goals and motivation:}
+Graph data management systems have been receiving a lot of attention with the arrival of various social networks like facebook, twitter, google+ etc. All these networks have their data stored in some or the other form of graph with billions of nodes. Graph databases processing relation information between nodes effectively and their efficiency on running graph queries have made relational databases not a preferred choice. Social networks are flooded with online communities, which are formed based on some form of connectivity between the users.
 \\\\
-However, there is no comprehensive study to measure performance of community detection algorithms in the context of various graph databases.
+However, there have been no comprehensive studies in the past to measure performance of community detection algorithms in the context of various graph databases.
 \\\\
 Therefore, we have two motivations for doing this project:
 	\begin{enumerate}
 	\item
 	Clustering a synthetic social network graph on graph databases to detect network communities. For accomplishing this task, we will be implementing standard agglomerative clustering with various cluster quality measures to form clusters.
 	\item
-	We will do the performance evaluation of graph databases in terms of time of execution and memory usage for the clustering algorithm. It will provide a benchmark for future users and an opportunity to select the appropriate graph database based on how its performance metrics.
+	We will do performance evaluation of graph databases in terms of their time of execution and run-time memory usage while running the clustering algorithms. It will provide benchmark numbers and an opportunity to select an appropriate graph database.
 	\item 
-	We also would like to study the scalability of graph databases as data grows in orders of magnitude using clustering as the task.
+	We also would like to study the scalability performance of these graph databases as data grows in orders of magnitude using clustering as the task.
 	\end{enumerate}
-In one of the benchmarking task [8], author has compared performance of Page Rank and Shortest Paths on graph database and relational database. Therefore our proposal is novel in terms of task compared.
+In one of the benchmarking study[8], author has compared performance of graph database and relational databases on page rank and shortest paths tasks. Therefore our proposal is novel in terms of task.
 \end{answer}
 
 \begin{answer}{Ambitious goal:}
@@ -51,20 +51,20 @@ In one of the benchmarking task [8], author has compared performance of Page Ran
 \end{answer}
 
 \begin{answer}{Survery of related work:}
-Hierarchical clustering algorithm has been studied([1][2][3]) for over decades now. Also there have been many of its successful implementations for various applications([4][5]). In addition to that, many researchers have evaluated different types of hierarchical algorithms (list of algo survey papers) but most of the results were presented on smaller datasets. As the data sizes grow for network graphs these algorithms are implemented on graph databases and there is a very little literature ([6]) on the implementation and evaluation of these clustering algorithms on large datasets using graph database systems. The goal of the project is to study the performance of graph database systems running clustering algorithms on large datasets. 
+Hierarchical clustering algorithm has been studied([1][2][3]) for over decades now. Also there have been many of its successful implementations for various applications([4][5]). In addition to that, many researchers have evaluated different types of hierarchical algorithms (list of algorithm survey papers) but most of the results were presented on smaller datasets. As the data sizes grow for network graphs these algorithms are implemented on graph databases and there is a very little literature[6] on the implementation and evaluation of these clustering algorithms on large datasets using graph database systems. Some work on performance comparison on the relational and graph databases has been done by [8] but they evaluated different tasks i.e. page ranking and shortest path distance. They showed that relational databases perform better in comparison to graph database for the above tasks. However when dealing with social network data, SQL is certainly not a preferred choice. Therefore a comprehensive performance comparison of some popular graph databases is required.
 
 \end{answer}
 
 \begin{answer}{Milestones:}	
 	\begin{enumerate}
 	\item
-	Dataset generation - 03/03
+	Dataset generation: 03/05
 	\item
-	Graph database understanding and hands on: 03/07
+	Graph databases understanding and hands on: 03/13
 	\item
-	System setup: 03/12
+	System setup: 03/16
 	\item
-	Clustering Algorithm implementation and testing on 1st database system: 03/24 
+	Clustering algorithm implementation and testing on 1st database system: 03/26
 	\item
 	Testing on the 1st database: 03/30
 	\item
