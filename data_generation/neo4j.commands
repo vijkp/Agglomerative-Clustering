@@ -1,0 +1,12 @@
+CREATE (n:Person {name: "ashish" })
+CREATE (n:Person {name: "vijay" })
+CREATE (n:Person {name: "ashish" })
+CREATE (n:Person {name: "vijay2" })
+MATCH (person1:Person) WHERE person1.name = "vijay2" MATCH (person2:Person) WHERE person2.name = "sneha" CREATE (person1)-[:FRIENDS_WITH]->(person2)
+MATCH (person1:Person) WHERE person1.name = "vijay2" MATCH (person2:Person) WHERE person2.name = "ashish" CREATE (person1)-[:FRIENDS_WITH]->(person2)
+MATCH (person1:Person) WHERE person1.name = "ashish" MATCH (person2:Person) WHERE person2.name = "sneha" CREATE (person1)-[:FRIENDS_WITH]->(person2)
+MATCH (person1:Person) WHERE person1.name = "ashish" MATCH (person2:Person) WHERE person2.name = "sneha" CREATE (person1)-[:FRIENDS_WITH]->(person2)
+
+Delete all nodes and relationships:
+MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r;
+
