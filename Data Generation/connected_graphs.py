@@ -1,0 +1,91 @@
+#!/usr/bin/python
+import sys
+import networkx as nx
+import matplotlib.pyplot as plt
+import random
+import math
+from networkx.generators.classic import empty_graph, path_graph, complete_graph
+
+from collections import defaultdict
+try:
+    from itertools import izip_longest as zip_longest
+except ImportError: # Python3 has zip_longest
+    from itertools import zip_longest
+from networkx.utils import is_string_like
+
+def union_all(graphs, rename=(None,) , name=None):
+    graphs_names = zip_longest(graphs,rename)
+    U, gname = next(graphs_names)
+    for H,hname in graphs_names:
+        U = nx.union(U, H, (gname,hname),name=name)
+        gname = None
+    return U
+
+if len(sys.argv) < 5:
+    print "Invalid number of arguments"
+    print "Example: ./connected_graphs.py <group_total_nodes> <avg_edges> <triange_prob> <prob_edge_addition> [<image_name>]"
+    print "./connected_graphs.py 50 10 .8 .3 [<image name>]"
+    exit()
+
+image_name = "output.png"
+if len(sys.argv) == 6:
+    image_name = sys.argv[5];
+
+total_edges = 0
+nodes_per_group = int(sys.argv[1])
+random_edges_per_node = int(sys.argv[2])
+triangle_prob = float(sys.argv[3])
+edge_addition_prob = float(sys.argv[4]) 
+
+G=nx.powerlaw_cluster_graph(nodes_per_group, random_edges_per_node, triangle_prob,10)
+Gnode_count = G.number_of_nodes()
+Gnodes = G.nodes()
+print "Edges in group G: ", G.number_of_edges()
+
+H = nx.powerlaw_cluster_graph(nodes_per_group, random_edges_per_node, triangle_prob,10)
+H = nx.convert_node_labels_to_integers(H,first_label=nodes_per_group)
+Hnodes = H.nodes()
+Hnode_count = H.number_of_nodes()
+print "Edges in group H: ", H.number_of_edges()
+
+I = nx.powerlaw_cluster_graph(nodes_per_group, random_edges_per_node, triangle_prob,10)
+I = nx.convert_node_labels_to_integers(I,first_label=nodes_per_group*2)
+Inodes = I.nodes()
+Inode_count = I.number_of_nodes()
+print "Edges in group I: ", I.number_of_edges()
+
+R=union_all((G,H,I))
+
+count = 0
+for i in Gnodes:
+    random_Hnodes = random.sample(Hnodes, int(random_edges_per_node*.5))
+    for j in random_Hnodes:
+        if random.random() < edge_addition_prob:
+            R.add_edge(i, j)
+            count = count+1
+
+for i in Hnodes:
+    random_Inodes = random.sample(Inodes, int(random_edges_per_node*.5))
+    for j in random_Inodes:
+        if random.random() < edge_addition_prob:
+            R.add_edge(i, j)
+            count = count+1
+
+for i in Inodes:
+    random_Gnodes = random.sample(Gnodes, int(random_edges_per_node*.5))
+    for j in random_Gnodes:
+        if random.random() < edge_addition_prob:
+            R.add_edge(i, j)
+            count = count+1
+
+total_edges = R.number_of_edges()
+print "total edges:", total_edges
+print "new edges across two groups: ", count
+nx.draw(R)
+plt.savefig(image_name);
+print "plot saved as ", image_name
+plt.show()
+nx.write_dot(R, "data.dot")
+
+
+exit()
