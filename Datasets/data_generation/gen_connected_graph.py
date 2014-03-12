@@ -5,8 +5,9 @@ import matplotlib.pyplot as plt
 import random
 import math
 from networkx.generators.classic import empty_graph, path_graph, complete_graph
-
 from collections import defaultdict
+import pickle
+
 try:
     from itertools import izip_longest as zip_longest
 except ImportError: # Python3 has zip_longest
@@ -23,13 +24,17 @@ def union_all(graphs, rename=(None,) , name=None):
 
 if len(sys.argv) < 5:
     print "Invalid number of arguments"
-    print "Example: ./connected_graphs.py <group_total_nodes> <avg_edges> <triange_prob> <prob_edge_addition> [<image_name>]"
+    print "Example: ./connected_graphs.py <group_total_nodes> <avg_edges> <triange_prob> <prob_edge_addition> [<dataset-name>]"
     print "./connected_graphs.py 50 10 .8 .3 [<image name>]"
     exit()
 
-image_name = "output.png"
+dataset_name = "output"
 if len(sys.argv) == 6:
-    image_name = sys.argv[5];
+    dataset_name = sys.argv[5];
+image_name = dataset_name + ".png"
+dot_name = dataset_name + ".dot"
+pckl_name = dataset_name + ".pckl"
+neo4j_data = dataset_name + "-neo4j.txt"
 
 total_edges = 0
 nodes_per_group = int(sys.argv[1])
@@ -81,26 +86,27 @@ for i in Inodes:
 total_edges = R.number_of_edges()
 print "total edges:", total_edges
 print "new edges across two groups: ", count
-#nx.draw(R)
-#plt.savefig(image_name);
+nx.draw(R)
+plt.savefig(image_name);
 print "plot saved as ", image_name
-#plt.show()
-nx.write_dot(R, "data.dot")
+plt.show()
+nx.write_dot(R, dot_name)
 
-#CREATE (n:Person {name: "vijay2" })
-#MATCH (person1:Person) WHERE person1.name = "vijay2" MATCH (person2:Person) WHERE person2.name = "sneha" CREATE (person1)-[:FRIENDS_WITH]->(person2)
+# save graph structures on disk
+f = open(pckl_name, 'w')
+pickle.dump(R, f)
+f.close()
 
-fd = open("outputfile.txt", "w")
+# save graph in structured format for loading into neo4j database 
+fd = open(neo4j_data, "w")
 Rnumber = R.number_of_nodes()
+Redges = R.edges()
 for i in range(Rnumber):
     fd.write("CREATE (n:Person {name: \"p" + str(i)+ "\" });\n")  
-
-
-Redges = R.edges()
 for i in Redges:
     fd.write("MATCH (person1:Person) WHERE person1.name = \"p" + str(i[0]) + "\"")
     fd.write("MATCH (person2:Person) WHERE person2.name = \"p" + str(i[1]) + "\"")
     fd.write("CREATE (person1)-[:FRIENDS_WITH]->(person2);\n")
-    
+fd.close()
 
 exit()
