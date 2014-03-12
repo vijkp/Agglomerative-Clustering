@@ -1,0 +1,10 @@
+CREATE (n:Person {name: "p0" });
+CREATE (n:Person {name: "p1" });
+CREATE (n:Person {name: "p2" });
+CREATE (n:Person {name: "p3" });
+CREATE (n:Person {name: "p4" });
+CREATE (n:Person {name: "p5" });
+CREATE (n:Person {name: "p6" });
+CREATE (n:Person {name: "p7" });
+CREATE (n:Person {name: "p8" });
+CREATE (n:Person {name: "p9" });
