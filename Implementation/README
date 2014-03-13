@@ -1,0 +1,4 @@
+./cluster-small.py ../Datasets/dataset-small/nodes-90/nodes-90.pckl
+./cluster-small.py ../Datasets/dataset-small/nodes-45/nodes-45.pckl
+./cluster-small.py ../Datasets/dataset-small/nodes-60/nodes-60.pckl
+
