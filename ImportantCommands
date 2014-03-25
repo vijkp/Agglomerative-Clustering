@@ -1,0 +1,5 @@
+#to find out neigboours:
+
+# all relationships attached to `alice`, regardless of direction
+# (alice)-[r]-()
+rels = list(graph_db.match(start_node=alice, bidirectional=True))
