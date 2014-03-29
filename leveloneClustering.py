@@ -37,7 +37,6 @@ def main():
 	dict[str(vertex)] = []
         query = neo4j.CypherQuery(graph_db, "MATCH (a)-[r]-(b) WHERE b.id="+"\""+str(vertex)+"\""+" RETURN a").execute()
         for r in query:
-	    #print str(r.a)
 	    m = re.findall("\"id\":(.*?)}", str(r.a))
 	    node_id = m[0].strip("\"")
             dict[str(vertex)].append(node_id)
@@ -49,7 +48,7 @@ def main():
 	    for node in cluster:
 	    	union_list = union(union_list, dict[str(node)])
 	    index = compute_jaccardIndex(union_list, dict[str(vertex)])
-	    if index >= 0.3:
+	    if index >= 0.4:
 		flag = 1
 		cluster.append(vertex)
 		break
@@ -57,7 +56,6 @@ def main():
 	if flag == 0:
 	    #if node has not found cluster to merge with, form a separate cluster
 	    clusters.append([vertex])
-
     
     print "Clusters"
 
