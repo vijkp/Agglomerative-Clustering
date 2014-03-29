@@ -6,23 +6,13 @@ import sys
 
 def main():
     #provide path to data pickle file.
-    #data_file = sys.argv[1]
-    graph_db = neo4j.GraphDatabaseService("http://localhost:7474/db/data/")
-     
-    query = neo4j.CypherQuery(graph_db, "MATCH (a)-[r]-(b) WHERE b.id=\"2\" RETURN a").execute()
-    #answer = query.execute()
-    #answer2 = neo4$.CypherResults(answer)
-    for r in query:
-        print r.a
-	#print type(r.p)
-    exit()
     data_file = sys.argv[1]
     fd = open(data_file, "r")
     graph = pickle.load(fd)
     nodes =  graph.nodes()
     edges = graph.edges()
     print len(edges)
-    print ashish
+    graph_db = neo4j.GraphDatabaseService("http://localhost:7474/db/data/")
     community = graph_db.get_or_create_index(neo4j.Node, "community")
     #inserting nodes in database
     for node in nodes:
