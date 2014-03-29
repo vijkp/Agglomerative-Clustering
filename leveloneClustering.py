@@ -17,7 +17,10 @@ def union(a, b):
 
 def compute_jaccardIndex(list1, list2):
 
-    return (float(float(len(intersection(list1, list2)))/float(len(union(list1, list2)))))
+    number = len(union(list1, list2))
+    if number==0:
+        return 0.0
+    return (float(float(len(intersection(list1, list2)))/float(number)))
 
 def main():
 
