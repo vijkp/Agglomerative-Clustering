@@ -3,3 +3,6 @@
 # all relationships attached to `alice`, regardless of direction
 # (alice)-[r]-()
 rels = list(graph_db.match(start_node=alice, bidirectional=True))
+
+#delete all nodes in database
+MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r
