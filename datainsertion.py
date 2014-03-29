@@ -26,18 +26,17 @@ def main():
     #people = graph_db.get_or_create_index(neo4j.Node, "People")
     #people.create_if_none("family_name", "Smith", alice)
     for edge in edges:
-   
         node1 =  edge[0]
-	node2 =  edge[1]
-	print node1
-	print node2
-	ref1 = community.get("id", str(node1))
+        node2 =  edge[1]
+        print node1
+        print node2
+        ref1 = community.get("id", str(node1))
         ref2 = community.get("id", str(node2))
-	print ref1
-	print ref2
-	batch.create(rel(ref1[0], "KNOWS", ref2[0]))
+        print ref1
+        print ref2
+        batch.create(rel(ref1[0], "KNOWS", ref2[0]))
 
-    results = batch.submit()   
+    results = batch.submit()
 
     print nodes
     print
