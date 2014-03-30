@@ -44,20 +44,20 @@ def can_combine_cluster(cl1, cl2):
     clustering_coeff_1   = nx.average_clustering(temp_graph1)
     clustering_coeff_2   = nx.average_clustering(temp_graph2)
     clustering_coeff_all = nx.average_clustering(temp_graph_all)
-    print (str)(clustering_coeff_1) + " " + (str)(clustering_coeff_2) +" "+ (str)(clustering_coeff_all)
+    #print (str)(clustering_coeff_1) + " " + (str)(clustering_coeff_2) +" "+ (str)(clustering_coeff_all)
    
     if clustering_coeff_1 == 1:
-        clustering_coeff_1 = .94
+        clustering_coeff_1 = .95
 
     if clustering_coeff_2 == 1:
-        clustering_coeff_2 = .94
+        clustering_coeff_2 = .95
     
     if (clustering_coeff_1 == 0) and (clustering_coeff_2 == 0):
         return False
     
-    fraction = 0.95
-    if (clustering_coeff_all >= fraction*clustering_coeff_1) and (clustering_coeff_all >= fraction*clustering_coeff_2):
-        print "combine"
+    fraction = 0.96
+    if (clustering_coeff_all > fraction*clustering_coeff_1) and (clustering_coeff_all > fraction*clustering_coeff_2):
+        #print "combine"
         return True
     return False 
 
@@ -139,7 +139,7 @@ def main():
             temp_index2   = 1 
             while (temp_index1 < len(clusters)) and (temp_index2 < len(clusters)):
                 temp_cluster2 = clusters[temp_index2]
-                print str(temp_index1) + " " + str(temp_index2)
+                #print str(temp_index1) + " " + str(temp_index2)
                 if (can_combine_cluster(temp_cluster1, temp_cluster2) == True)  and (temp_index1 != temp_index2):
                     combine_cluster(temp_index1, temp_index2)
                     continue
