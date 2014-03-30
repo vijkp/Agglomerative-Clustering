@@ -8,6 +8,58 @@ import pickle
 import sys
 import re
 import Queue
+import networkx as nx
+
+clusters = []
+
+# Load graph data from file
+data_file = "../Datasets/dataset-small/nodes-90/nodes-90.pckl"
+fd = open(data_file, "r")
+graph = pickle.load(fd);
+
+G = nx.Graph()
+G.add_nodes_from(graph.nodes())
+G.add_edges_from(graph.edges())
+
+def combine_cluster(cl1, cl2):
+    global clusters   
+    if cl1 == cl2:
+        return
+    clusters[cl1] = clusters[cl1] + clusters[cl2]
+    clusters.remove(clusters[cl2])
+
+def can_combine_cluster(cl1, cl2):
+    global G
+    cl1_int = []
+    cl2_int = []
+    for string in cl1:
+        cl1_int.append(int(string))
+    for string in cl2:
+        cl2_int.append(int(string))
+
+    temp_graph1 = G.subgraph(cl1_int)
+    temp_graph2 = G.subgraph(cl2_int)
+    temp_graph_all = G.subgraph(cl1_int + cl2_int)
+    
+    clustering_coeff_1   = nx.average_clustering(temp_graph1)
+    clustering_coeff_2   = nx.average_clustering(temp_graph2)
+    clustering_coeff_all = nx.average_clustering(temp_graph_all)
+    print (str)(clustering_coeff_1) + " " + (str)(clustering_coeff_2) +" "+ (str)(clustering_coeff_all)
+   
+    if clustering_coeff_1 == 1:
+        clustering_coeff_1 = .94
+
+    if clustering_coeff_2 == 1:
+        clustering_coeff_2 = .94
+    
+    if (clustering_coeff_1 == 0) and (clustering_coeff_2 == 0):
+        return False
+    
+    fraction = 0.95
+    if (clustering_coeff_all >= fraction*clustering_coeff_1) and (clustering_coeff_all >= fraction*clustering_coeff_2):
+        print "combine"
+        return True
+    return False 
 
 def intersection(a, b):
     return list(set(a) & set(b))
@@ -29,9 +81,9 @@ def main():
     bfs_index = {}
     bfs_queue = Queue.Queue()
     neighbor_dict = {}
-    clusters = []
     jindex_threshold = 0.3
-
+    
+    global clusters
     # Login to database
     graph_db = neo4j.GraphDatabaseService("http://localhost:7474/db/data/")
 
@@ -73,6 +125,33 @@ def main():
     print "Clusters"
     for cluster in clusters:
         print cluster
+
+    print "level 2"
+    ## combine clusters ever more
+    total_clusters = len(clusters)
+    clusters_before = total_clusters
+    clusters_after = 0
+    while clusters_before != clusters_after:
+        clusters_before = clusters_after
+        temp_index1 = 0    
+        while temp_index1  < total_clusters:
+            temp_cluster1 = clusters[temp_index1]
+            temp_index2   = 1 
+            while (temp_index1 < len(clusters)) and (temp_index2 < len(clusters)):
+                temp_cluster2 = clusters[temp_index2]
+                print str(temp_index1) + " " + str(temp_index2)
+                if (can_combine_cluster(temp_cluster1, temp_cluster2) == True)  and (temp_index1 != temp_index2):
+                    combine_cluster(temp_index1, temp_index2)
+                    continue
+                temp_index2 = temp_index2 + 1
+            temp_index1 = temp_index1 + 1
+            total_clusters = len(clusters)
+            clusters_after = total_clusters
+
+    for cluster in clusters:
+        print cluster
+        print len(cluster)
+
 
 if __name__ == "__main__":
     main()
