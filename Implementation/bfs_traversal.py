@@ -24,11 +24,10 @@ def main():
     bfs_queue.put("20")
     bfs_index["1"] = 1
     bfs_index["20"] = 1 
-    
     # Iterate through the queue
     while bfs_queue.empty() == False:
         bfs_node = bfs_queue.get()
-        #print bfs_node
+        print bfs_node
         query = neo4j.CypherQuery(graph_db, "MATCH (a)-[r]-(b) WHERE b.id="+"\""+str(bfs_node)+"\""+" RETURN a").execute()
         for r in query:
             m = re.findall("\"id\":(.*?)}", str(r.a))
