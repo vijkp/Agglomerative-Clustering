@@ -21,45 +21,48 @@ G = nx.Graph()
 G.add_nodes_from(graph.nodes())
 G.add_edges_from(graph.edges())
 
+def check_and_merge_clusters(index):
+    global clusters
+    global G
+        
+    given_cluster = []
+    total_clusters = len(clusters)
+    cluster_coeff_all = [0]*total_clusters
+    cluster_coeff_temp = [0]*total_clusters
+    for string in clusters[index]:
+        given_cluster.append(int(string))
+    given_graph = G.subgraph(given_cluster)
+    clustering_coeff_given   = nx.average_clustering(given_graph)
+    
+    temp_index = 0
+    while temp_index < total_clusters:
+        temp_cluster = []
+        for string in clusters[temp_index]:
+            temp_cluster.append(int(string))
+        temp_graph = G.subgraph(temp_cluster)
+        temp_graph_all = G.subgraph(temp_cluster + given_cluster)
+
+        clustering_coeff_all = nx.average_clustering(temp_graph_all)
+        clustering_coeff_temp = nx.average_clustering(temp_graph)
+        cluster_coeff_all[temp_index] = clustering_coeff_all
+        cluster_coeff_temp[temp_index] = clustering_coeff_temp        
+        temp_index = temp_index + 1
+
+    # Find the index with highest coefficient and combine them
+    max_index = cluster_coeff_all.index(max(cluster_coeff_all))
+    if clustering_coeff_given > .94:
+        clustering_coeff_given = 0.94
+    if cluster_coeff_temp[max_index] > .94:
+        cluster_coeff_temp[max_index] =0.94
+    if (cluster_coeff_all[max_index] >= .95*clustering_coeff_given) and (cluster_coeff_all[max_index] >= .95*cluster_coeff_temp[max_index]):
+        combine_cluster(index, max_index)
+    
 def combine_cluster(cl1, cl2):
     global clusters   
     if cl1 == cl2:
         return
     clusters[cl1] = clusters[cl1] + clusters[cl2]
     clusters.remove(clusters[cl2])
-
-def can_combine_cluster(cl1, cl2):
-    global G
-    cl1_int = []
-    cl2_int = []
-    for string in cl1:
-        cl1_int.append(int(string))
-    for string in cl2:
-        cl2_int.append(int(string))
-
-    temp_graph1 = G.subgraph(cl1_int)
-    temp_graph2 = G.subgraph(cl2_int)
-    temp_graph_all = G.subgraph(cl1_int + cl2_int)
-    
-    clustering_coeff_1   = nx.average_clustering(temp_graph1)
-    clustering_coeff_2   = nx.average_clustering(temp_graph2)
-    clustering_coeff_all = nx.average_clustering(temp_graph_all)
-    #print (str)(clustering_coeff_1) + " " + (str)(clustering_coeff_2) +" "+ (str)(clustering_coeff_all)
-   
-    if clustering_coeff_1 == 1:
-        clustering_coeff_1 = .95
-
-    if clustering_coeff_2 == 1:
-        clustering_coeff_2 = .95
-    
-    if (clustering_coeff_1 == 0) and (clustering_coeff_2 == 0):
-        return False
-    
-    fraction = 0.96
-    if (clustering_coeff_all > fraction*clustering_coeff_1) and (clustering_coeff_all > fraction*clustering_coeff_2):
-        #print "combine"
-        return True
-    return False 
 
 def intersection(a, b):
     return list(set(a) & set(b))
@@ -90,11 +93,11 @@ def main():
     # Initial seed to start the traversal
     bfs_queue.put("1")
     bfs_index["1"] = 1
-
+    
+    counter = 0
     # Start processing nodes from the traverse queue
     while bfs_queue.empty() == False:
         bfs_node = bfs_queue.get()
-        print "Processing node " + str(bfs_node)
         neighbor_dict[str(bfs_node)] = []
         query = neo4j.CypherQuery(graph_db, get_query_string(bfs_node)).execute()
         for r in query:
@@ -121,37 +124,32 @@ def main():
         # If node has not found a cluster to merge with, create a new cluster
         if flag == 0:
             clusters.append([bfs_node])
+        
+        # counter to monitor the progress
+        counter = counter + 1
+        if counter%10 == 0:
+            print str(counter) + " nodes processed"
 
-    print "Clusters"
+    print "Clusters after initial pass"
     for cluster in clusters:
         print cluster
 
-    print "level 2"
-    ## combine clusters ever more
+    print "Clusters after final pass"
+    # combine clusters ever more
     total_clusters = len(clusters)
     clusters_before = total_clusters
     clusters_after = 0
     while clusters_before != clusters_after:
         clusters_before = clusters_after
-        temp_index1 = 0    
-        while temp_index1  < total_clusters:
-            temp_cluster1 = clusters[temp_index1]
-            temp_index2   = 1 
-            while (temp_index1 < len(clusters)) and (temp_index2 < len(clusters)):
-                temp_cluster2 = clusters[temp_index2]
-                #print str(temp_index1) + " " + str(temp_index2)
-                if (can_combine_cluster(temp_cluster1, temp_cluster2) == True)  and (temp_index1 != temp_index2):
-                    combine_cluster(temp_index1, temp_index2)
-                    continue
-                temp_index2 = temp_index2 + 1
-            temp_index1 = temp_index1 + 1
-            total_clusters = len(clusters)
-            clusters_after = total_clusters
-
+        temp_index = 0    
+        while temp_index  < len(clusters):
+            check_and_merge_clusters(temp_index)
+            temp_index = temp_index + 1
+        clusters_after = len(clusters)
     for cluster in clusters:
         print cluster
-        print len(cluster)
-
-
+        print "Nodes:" + str(len(cluster))
+    return
+  
 if __name__ == "__main__":
     main()
