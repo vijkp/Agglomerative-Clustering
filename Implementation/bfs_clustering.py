@@ -1,9 +1,7 @@
 #!/usr/bin/python
 # Traverse and cluster a graph database
 
-from py2neo import neo4j
-from py2neo import rel
-from py2neo import cypher
+from py2neo import neo4j, rel, cypher
 import pickle
 import sys
 import re
@@ -12,8 +10,14 @@ import networkx as nx
 
 clusters = []
 
+if len(sys.argv) < 2:
+        print "Error: Invalid number of arguments"
+        print "Usage: ./bfs_clustering.py <filepath to pckl file>"
+        exit()
+
 # Load graph data from file
-data_file = "../Datasets/dataset-small/nodes-90/nodes-90.pckl"
+# data_file = "../Datasets/dataset-small/nodes-90/nodes-90.pckl"
+data_file = sys.argv[1]
 fd = open(data_file, "r")
 graph = pickle.load(fd);
 
