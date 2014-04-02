@@ -89,13 +89,15 @@ print "new edges across two groups: ", count
 nx.draw(R)
 plt.savefig(image_name);
 print "plot saved as ", image_name
-plt.show()
+#plt.show()
 nx.write_dot(R, dot_name)
 
 # save graph structures on disk
 f = open(pckl_name, 'w')
 pickle.dump(R, f)
 f.close()
+
+exit()
 
 # save graph in structured format for loading into neo4j database 
 fd = open(neo4j_data, "w")
