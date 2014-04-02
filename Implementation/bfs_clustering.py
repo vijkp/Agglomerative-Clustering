@@ -12,8 +12,14 @@ import networkx as nx
 
 clusters = []
 
+if len(sys.argv) < 2:
+        print "Error: Invalid number of arguments"
+        print "Usage: ./bfs_clustering.py <filepath to pckl file>"
+        exit()
+
 # Load graph data from file
-data_file = "../Datasets/dataset-small/nodes-90/nodes-90.pckl"
+# data_file = "../Datasets/dataset-small/nodes-90/nodes-90.pckl"
+data_file = sys.argv[1]
 fd = open(data_file, "r")
 graph = pickle.load(fd);
 
