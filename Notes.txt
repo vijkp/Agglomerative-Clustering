@@ -1,3 +1,7 @@
+2nd Pass
+========
+1. No. of crossing edges between two groups
+2. Distance between two cetroid nodes of two groups
 
 Report
 ======
