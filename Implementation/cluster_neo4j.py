@@ -50,18 +50,18 @@ def can_combine_cluster(cl1, cl2):
     clustering_coeff_1   = nx.average_clustering(temp_graph1)
     clustering_coeff_2   = nx.average_clustering(temp_graph2)
     clustering_coeff_all = nx.average_clustering(temp_graph_all)
-    #print (str)(clustering_coeff_1) + " " + (str)(clustering_coeff_2) +" "+ (str)(clustering_coeff_all)
-   
+    #print (str)(clustering_coeff_1) + " " + (str)(clustering_coeff_2) +" "+ (str)(clustering_coeff_all)   
+	
     if clustering_coeff_1 == 1:
-        clustering_coeff_1 = .95
+        clustering_coeff_1 = .98
 
     if clustering_coeff_2 == 1:
-        clustering_coeff_2 = .95
+        clustering_coeff_2 = .98
     
     if (clustering_coeff_1 == 0) and (clustering_coeff_2 == 0):
         return False
     
-    fraction = 0.96
+    fraction = 1
     if (clustering_coeff_all > fraction*clustering_coeff_1) and (clustering_coeff_all > fraction*clustering_coeff_2):
         #print "combine"
         return True

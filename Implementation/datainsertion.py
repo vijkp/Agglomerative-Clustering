@@ -25,7 +25,9 @@ def main():
     #alice, = graph_db.create({"name": "Alice Smith"})
     #people = graph_db.get_or_create_index(neo4j.Node, "People")
     #people.create_if_none("family_name", "Smith", alice)
+    count = 0
     for edge in edges:
+	count+=1
         node1 =  edge[0]
         node2 =  edge[1]
         print node1
@@ -35,9 +37,12 @@ def main():
         print ref1
         print ref2
         batch.create(rel(ref1[0], "KNOWS", ref2[0]))
-
-    results = batch.submit()
-
+	if count>=1000:
+    	    batch.run()
+	    count = 0
+	    batch.clear()
+    results = batch.run()
+    batch.clear()
     print nodes
     print
     print edges
