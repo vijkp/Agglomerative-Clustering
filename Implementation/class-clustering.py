@@ -5,7 +5,27 @@ import math
 import pickle
 from operator import itemgetter
 import networkx as nx
+from cluster_dbms import Cluster as cl
 clusters = []
+def get_id(list):
+    return str(sum(list)) + str(i[0:10])
+
+def generate_cluster_dict(clusters, cluster_dict):
+    for i in clusters:
+        id = get_id(i)
+        print id
+        cluster_dict[id] = cl(i, .5)
+    
+    cluster_dict[sum([5, 6])] = cl([5, 6], .5)
+    cluster_dict[sum([4, 7])] = cl([4,7], .4)
+    # Calculate clustering coeffs of all the clusters
+    #XXX
+
+    for i in clusters:
+        id = get_id(i)
+        print cluster_dict[id].show()
+    print cluster_dict[11].show()
+    print cluster_dict[11].show()
 
 def unique(a):
     a = set(a)
@@ -176,27 +196,7 @@ while clusters_before != clusters_after:
 print "level-3 complete."
 count = 1
 for i in clusters:
-    print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
 
-exit()
-
-# show the nodes in a graph
-C = nx.Graph()
-count = 1
-for i in clusters:
-    print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
-    temp = G.subgraph(i)
-    C.add_nodes_from(temp.nodes())
-    C.add_edges_from(temp.edges())
-    count += 1
-
-pos = nx.spring_layout(C) 
-
-colors = ['r', 'b', 'g', 'y']
-count = 0
-for i in clusters:
-    temp = G.subgraph(i)
-    nx.draw_networkx(temp, pos, node_color=colors[count])
-    count += 1
-#plt.show()
-    
+cluster_dict = {}
+generate_cluster_dict(clusters, cluster_dict)
