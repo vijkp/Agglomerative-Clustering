@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from py2neo import neo4j
 from py2neo import rel
 from py2neo import cypher

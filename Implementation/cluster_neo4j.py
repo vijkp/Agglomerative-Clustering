@@ -9,6 +9,7 @@ import sys
 import re
 import Queue
 import networkx as nx
+import datetime
 
 clusters = []
 
@@ -53,15 +54,15 @@ def can_combine_cluster(cl1, cl2):
     #print (str)(clustering_coeff_1) + " " + (str)(clustering_coeff_2) +" "+ (str)(clustering_coeff_all)   
 	
     if clustering_coeff_1 == 1:
-        clustering_coeff_1 = .98
+        clustering_coeff_1 = .96
 
     if clustering_coeff_2 == 1:
-        clustering_coeff_2 = .98
+        clustering_coeff_2 = .96
     
     if (clustering_coeff_1 == 0) and (clustering_coeff_2 == 0):
         return False
     
-    fraction = 1
+    fraction = .95
     if (clustering_coeff_all > fraction*clustering_coeff_1) and (clustering_coeff_all > fraction*clustering_coeff_2):
         #print "combine"
         return True
@@ -84,6 +85,7 @@ def get_query_string(bfs_node):
 
 def main():
     # Variables
+    print datetime.datetime.now() 
     bfs_index = {}
     bfs_queue = Queue.Queue()
     neighbor_dict = {}
@@ -128,9 +130,13 @@ def main():
         if flag == 0:
             clusters.append([bfs_node])
 
-    print "Clusters"
-    for cluster in clusters:
-        print cluster
+    print "level-1 complete"
+    print datetime.datetime.now() 
+    # Print clusters
+    count = 1
+    for i in clusters:
+        print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        count += 1
 
     print "level 2"
     ## combine clusters ever more
@@ -152,12 +158,17 @@ def main():
                 temp_index2 = temp_index2 + 1
             temp_index1 = temp_index1 + 1
             total_clusters = len(clusters)
+            if total_clusters < 4:
+                break
             clusters_after = total_clusters
 
-    for cluster in clusters:
-        print cluster
-        print len(cluster)
-
+    print "level-2 complete"
+    print datetime.datetime.now()
+    # Print clusters
+    count = 1
+    for i in clusters:
+        print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        count += 1
 
 if __name__ == "__main__":
     main()

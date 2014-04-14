@@ -7,25 +7,36 @@ from operator import itemgetter
 import networkx as nx
 from cluster_dbms import Cluster as cl
 clusters = []
+cluster_dict = {}
+
+def get_clustering_coeff(cllist, graph, cluster_dict):
+    print cllist
+    cl_id = get_id(cllist)
+    if cl_id not in cluster_dict:
+        add_list_to_cluster_dict(cllist, graph, cluster_dict)
+    return cluster_dict[cl_id].cl_coeff
+
+def add_list_to_cluster_dict(cllist, graph, cluster_dict):
+    cl_id  = get_id(cllist)
+    if cl_id not in cluster_dict:
+        sub_graph = graph.subgraph(cllist)
+        clustering_coeff = nx.average_clustering(sub_graph)
+        cluster_dict[cl_id] = cl(cllist, clustering_coeff)
+    return 
+
 def get_id(list):
-    return str(sum(list)) + str(i[0:10])
+    return str(sum(list)) + str(list[0:10])
 
-def generate_cluster_dict(clusters, cluster_dict):
+def generate_cluster_dict(clusters, cluster_dict, graph):
     for i in clusters:
         id = get_id(i)
-        print id
-        cluster_dict[id] = cl(i, .5)
-    
-    cluster_dict[sum([5, 6])] = cl([5, 6], .5)
-    cluster_dict[sum([4, 7])] = cl([4,7], .4)
-    # Calculate clustering coeffs of all the clusters
-    #XXX
+        if id not in cluster_dict:
+            sub_graph = graph.subgraph(i)
+            clustering_coeff = nx.average_clustering(sub_graph)
+            cluster_dict[id] = cl(i, clustering_coeff)
 
-    for i in clusters:
-        id = get_id(i)
-        print cluster_dict[id].show()
-    print cluster_dict[11].show()
-    print cluster_dict[11].show()
+    #for key in cluster_dict:
+    #    print cluster_dict[key].show()
 
 def unique(a):
     a = set(a)
@@ -33,9 +44,6 @@ def unique(a):
 
 def can_combine_cluster2(cl1, cl2):
     combine = False
-    temp_graph1 = G.subgraph(cl1)
-    temp_graph2 = G.subgraph(cl2)
-    temp_graph_all = G.subgraph(cl1 + cl2)
     
     if len(cl1) >= len(cl2):
         common_elements = list(set(cl1).intersection(set(cl2)))
@@ -47,13 +55,12 @@ def can_combine_cluster2(cl1, cl2):
         if len(common_elements) > 0.8*len(cl1): 
             combine = True
 
-
-    clustering_coeff_1   = nx.average_clustering(temp_graph1)
-    clustering_coeff_2   = nx.average_clustering(temp_graph2)
-    clustering_coeff_all = nx.average_clustering(temp_graph_all)
+    clustering_coeff_1   = get_clustering_coeff(cl1, G, cluster_dict) 
+    clustering_coeff_2   = get_clustering_coeff(cl2, G, cluster_dict) 
+    clustering_coeff_all = get_clustering_coeff(cl1 + cl2, G, cluster_dict) 
     #print cl1
     #print cl2
-    #print (str)(clustering_coeff_1) + " " + (str)(clustering_coeff_2) +" "+ (str)(clustering_coeff_all)
+    print (str)(clustering_coeff_1) + " " + (str)(clustering_coeff_2) +" "+ (str)(clustering_coeff_all)
     #print " "
     
     if combine:
@@ -65,14 +72,11 @@ def can_combine_cluster2(cl1, cl2):
     return False 
 
 def can_combine_cluster(cl1, cl2):
-    temp_graph1 = G.subgraph(cl1)
-    temp_graph2 = G.subgraph(cl2)
-    temp_graph_all = G.subgraph(cl1 + cl2)
+    clustering_coeff_1   = get_clustering_coeff(cl1, G, cluster_dict) 
+    clustering_coeff_2   = get_clustering_coeff(cl2, G, cluster_dict) 
+    clustering_coeff_all = get_clustering_coeff(cl1 + cl2, G, cluster_dict) 
 
-    clustering_coeff_1   = nx.average_clustering(temp_graph1)
-    clustering_coeff_2   = nx.average_clustering(temp_graph2)
-    clustering_coeff_all = nx.average_clustering(temp_graph_all)
-    #print (str)(clustering_coeff_1) + " " + (str)(clustering_coeff_2) +" "+ (str)(clustering_coeff_all)
+    print (str)(clustering_coeff_1) + " " + (str)(clustering_coeff_2) +" "+ (str)(clustering_coeff_all)
     
     if clustering_coeff_1 < .7:
         if cl1 in clusters: clusters.remove(cl1)
@@ -145,6 +149,9 @@ print "level-1 complete."
 #for i in clusters:
 #    print i
 
+# using dynamic programming
+generate_cluster_dict(clusters, cluster_dict, G)
+
 total_clusters = len(clusters)
 clusters_before = total_clusters
 clusters_after = 0
@@ -164,15 +171,24 @@ while clusters_before != clusters_after:
         clusters_after = total_clusters
 
 print "level-2 complete."
+count = 1
+for i in clusters:
+        print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        count += 1
 
 ## filter the noise i.e. remove nodes with 1 degree
-for i in clusters:
-    temp = G.subgraph(i)
-    graph_degrees = temp.degree()
-    for key in graph_degrees:
-        if graph_degrees[key] <= 2:
-            i.remove(key)
-print "noise removal complete."
+#for i in clusters:
+#    temp = G.subgraph(i)
+#    graph_degrees = temp.degree()
+##    for key in graph_degrees:
+#        if graph_degrees[key] <= 2:
+#            i.remove(key)
+#print "noise removal complete."
+
+#count = 1
+#for i in clusters:
+#        print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+#        count += 1
 
 ## combine clusters ever more
 total_clusters = len(clusters)
@@ -197,6 +213,6 @@ print "level-3 complete."
 count = 1
 for i in clusters:
         print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        count += 1
 
-cluster_dict = {}
-generate_cluster_dict(clusters, cluster_dict)
+

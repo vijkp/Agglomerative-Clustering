@@ -1,0 +1,392 @@
+2014-04-14 15:02:36.749506
+Processing node 1
+Processing node 40
+Processing node 41
+Processing node 42
+Processing node 43
+Processing node 44
+Processing node 45
+Processing node 46
+Processing node 47
+Processing node 48
+Processing node 50
+Processing node 51
+Processing node 52
+Processing node 54
+Processing node 55
+Processing node 56
+Processing node 57
+Processing node 58
+Processing node 59
+Processing node 60
+Processing node 61
+Processing node 62
+Processing node 63
+Processing node 66
+Processing node 67
+Processing node 73
+Processing node 76
+Processing node 77
+Processing node 80
+Processing node 86
+Processing node 88
+Processing node 96
+Processing node 97
+Processing node 98
+Processing node 0
+Processing node 2
+Processing node 3
+Processing node 4
+Processing node 5
+Processing node 6
+Processing node 7
+Processing node 8
+Processing node 9
+Processing node 10
+Processing node 11
+Processing node 12
+Processing node 13
+Processing node 14
+Processing node 15
+Processing node 16
+Processing node 17
+Processing node 18
+Processing node 19
+Processing node 20
+Processing node 21
+Processing node 22
+Processing node 23
+Processing node 24
+Processing node 25
+Processing node 26
+Processing node 27
+Processing node 28
+Processing node 29
+Processing node 30
+Processing node 31
+Processing node 32
+Processing node 33
+Processing node 34
+Processing node 35
+Processing node 36
+Processing node 37
+Processing node 38
+Processing node 39
+Processing node 49
+Processing node 53
+Processing node 64
+Processing node 65
+Processing node 68
+Processing node 69
+Processing node 70
+Processing node 71
+Processing node 72
+Processing node 74
+Processing node 75
+Processing node 78
+Processing node 79
+Processing node 81
+Processing node 82
+Processing node 83
+Processing node 84
+Processing node 85
+Processing node 87
+Processing node 90
+Processing node 91
+Processing node 92
+Processing node 93
+Processing node 94
+Processing node 95
+Processing node 99
+Processing node 89
+Processing node 240
+Processing node 217
+Processing node 236
+Processing node 257
+Processing node 235
+Processing node 185
+Processing node 155
+Processing node 115
+Processing node 134
+Processing node 191
+Processing node 244
+Processing node 128
+Processing node 202
+Processing node 104
+Processing node 227
+Processing node 263
+Processing node 137
+Processing node 194
+Processing node 164
+Processing node 163
+Processing node 199
+Processing node 226
+Processing node 270
+Processing node 196
+Processing node 232
+Processing node 116
+Processing node 103
+Processing node 289
+Processing node 252
+Processing node 214
+Processing node 141
+Processing node 200
+Processing node 201
+Processing node 203
+Processing node 204
+Processing node 205
+Processing node 206
+Processing node 207
+Processing node 208
+Processing node 209
+Processing node 210
+Processing node 211
+Processing node 212
+Processing node 213
+Processing node 215
+Processing node 216
+Processing node 218
+Processing node 219
+Processing node 220
+Processing node 221
+Processing node 222
+Processing node 223
+Processing node 224
+Processing node 225
+Processing node 228
+Processing node 229
+Processing node 230
+Processing node 231
+Processing node 233
+Processing node 234
+Processing node 237
+Processing node 238
+Processing node 239
+Processing node 241
+Processing node 242
+Processing node 243
+Processing node 245
+Processing node 246
+Processing node 247
+Processing node 248
+Processing node 249
+Processing node 250
+Processing node 251
+Processing node 253
+Processing node 254
+Processing node 255
+Processing node 256
+Processing node 258
+Processing node 259
+Processing node 260
+Processing node 261
+Processing node 262
+Processing node 264
+Processing node 265
+Processing node 266
+Processing node 267
+Processing node 268
+Processing node 269
+Processing node 271
+Processing node 272
+Processing node 273
+Processing node 274
+Processing node 275
+Processing node 276
+Processing node 278
+Processing node 279
+Processing node 280
+Processing node 281
+Processing node 282
+Processing node 283
+Processing node 284
+Processing node 285
+Processing node 286
+Processing node 287
+Processing node 288
+Processing node 290
+Processing node 291
+Processing node 292
+Processing node 293
+Processing node 294
+Processing node 295
+Processing node 296
+Processing node 297
+Processing node 298
+Processing node 299
+Processing node 277
+Processing node 106
+Processing node 107
+Processing node 108
+Processing node 110
+Processing node 111
+Processing node 112
+Processing node 114
+Processing node 120
+Processing node 121
+Processing node 140
+Processing node 142
+Processing node 143
+Processing node 144
+Processing node 145
+Processing node 146
+Processing node 148
+Processing node 149
+Processing node 150
+Processing node 152
+Processing node 153
+Processing node 156
+Processing node 157
+Processing node 158
+Processing node 159
+Processing node 160
+Processing node 165
+Processing node 166
+Processing node 167
+Processing node 168
+Processing node 169
+Processing node 173
+Processing node 181
+Processing node 182
+Processing node 187
+Processing node 188
+Processing node 189
+Processing node 190
+Processing node 192
+Processing node 195
+Processing node 197
+Processing node 198
+Processing node 101
+Processing node 109
+Processing node 113
+Processing node 117
+Processing node 118
+Processing node 119
+Processing node 122
+Processing node 123
+Processing node 125
+Processing node 126
+Processing node 127
+Processing node 131
+Processing node 132
+Processing node 133
+Processing node 136
+Processing node 147
+Processing node 151
+Processing node 154
+Processing node 161
+Processing node 162
+Processing node 170
+Processing node 171
+Processing node 172
+Processing node 174
+Processing node 175
+Processing node 176
+Processing node 177
+Processing node 178
+Processing node 179
+Processing node 180
+Processing node 183
+Processing node 184
+Processing node 186
+Processing node 193
+Processing node 105
+Processing node 102
+Processing node 100
+Processing node 124
+Processing node 129
+Processing node 130
+Processing node 135
+Processing node 138
+Processing node 139
+level-1 complete
+2014-04-14 15:04:55.834234
+Cluster-1 Total nodes: 70 ['1', '40', '41', '42', '43', '44', '45', '46', '47', '48', '50', '51', '52', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '66', '67', '73', '76', '77', '80', '86', '88', '96', '97', '98', '0', '2', '3', '6', '7', '10', '11', '14', '20', '49', '53', '64', '65', '68', '69', '70', '71', '72', '74', '75', '78', '79', '81', '82', '83', '84', '85', '87', '90', '91', '92', '93', '94', '95', '99', '89']
+Cluster-2 Total nodes: 19 ['4', '5', '8', '9', '12', '13', '15', '16', '17', '18', '19', '21', '22', '23', '25', '26', '27', '28', '31']
+Cluster-3 Total nodes: 9 ['24', '29', '30', '32', '33', '34', '35', '36', '38']
+Cluster-4 Total nodes: 2 ['37', '39']
+Cluster-5 Total nodes: 70 ['240', '257', '244', '202', '263', '270', '289', '252', '214', '200', '201', '203', '206', '207', '210', '211', '220', '241', '242', '243', '245', '246', '247', '248', '249', '250', '251', '253', '254', '255', '256', '258', '259', '260', '261', '262', '264', '265', '266', '267', '268', '269', '271', '272', '273', '274', '275', '276', '278', '279', '280', '281', '282', '283', '284', '285', '286', '287', '288', '290', '291', '292', '293', '294', '295', '296', '297', '298', '299', '277']
+Cluster-6 Total nodes: 20 ['217', '236', '235', '227', '226', '204', '205', '208', '209', '212', '213', '215', '216', '218', '219', '221', '222', '223', '225', '228']
+Cluster-7 Total nodes: 69 ['185', '155', '191', '104', '194', '164', '163', '199', '196', '103', '141', '106', '107', '110', '111', '114', '120', '140', '142', '143', '144', '145', '146', '148', '149', '150', '152', '153', '156', '157', '158', '159', '160', '165', '166', '167', '168', '169', '173', '181', '182', '187', '188', '189', '190', '192', '195', '197', '198', '147', '151', '154', '161', '162', '170', '171', '172', '174', '175', '176', '177', '178', '179', '180', '183', '184', '186', '193', '102']
+Cluster-8 Total nodes: 20 ['115', '134', '128', '116', '108', '112', '121', '101', '109', '113', '117', '118', '119', '122', '123', '125', '126', '127', '105', '100']
+Cluster-9 Total nodes: 9 ['137', '132', '133', '136', '124', '129', '130', '135', '138']
+Cluster-10 Total nodes: 8 ['232', '224', '229', '230', '231', '233', '234', '238']
+Cluster-11 Total nodes: 2 ['237', '239']
+Cluster-12 Total nodes: 2 ['131', '139']
+level 2
+level-2 complete
+2014-04-14 15:04:58.693103
+Cluster-1 Total nodes: 300 ['1', '40', '41', '42', '43', '44', '45', '46', '47', '48', '50', '51', '52', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '66', '67', '73', '76', '77', '80', '86', '88', '96', '97', '98', '0', '2', '3', '6', '7', '10', '11', '14', '20', '49', '53', '64', '65', '68', '69', '70', '71', '72', '74', '75', '78', '79', '81', '82', '83', '84', '85', '87', '90', '91', '92', '93', '94', '95', '99', '89', '4', '5', '8', '9', '12', '13', '15', '16', '17', '18', '19', '21', '22', '23', '25', '26', '27', '28', '31', '24', '29', '30', '32', '33', '34', '35', '36', '38', '37', '39', '240', '257', '244', '202', '263', '270', '289', '252', '214', '200', '201', '203', '206', '207', '210', '211', '220', '241', '242', '243', '245', '246', '247', '248', '249', '250', '251', '253', '254', '255', '256', '258', '259', '260', '261', '262', '264', '265', '266', '267', '268', '269', '271', '272', '273', '274', '275', '276', '278', '279', '280', '281', '282', '283', '284', '285', '286', '287', '288', '290', '291', '292', '293', '294', '295', '296', '297', '298', '299', '277', '185', '155', '191', '104', '194', '164', '163', '199', '196', '103', '141', '106', '107', '110', '111', '114', '120', '140', '142', '143', '144', '145', '146', '148', '149', '150', '152', '153', '156', '157', '158', '159', '160', '165', '166', '167', '168', '169', '173', '181', '182', '187', '188', '189', '190', '192', '195', '197', '198', '147', '151', '154', '161', '162', '170', '171', '172', '174', '175', '176', '177', '178', '179', '180', '183', '184', '186', '193', '102', '237', '239', '131', '139', '217', '236', '235', '227', '226', '204', '205', '208', '209', '212', '213', '215', '216', '218', '219', '221', '222', '223', '225', '228', '115', '134', '128', '116', '108', '112', '121', '101', '109', '113', '117', '118', '119', '122', '123', '125', '126', '127', '105', '100', '137', '132', '133', '136', '124', '129', '130', '135', '138', '232', '224', '229', '230', '231', '233', '234', '238']
+2014-04-14 15:04:59.397744
+Processed 30 nodes
+Processed 60 nodes
+Processed 90 nodes
+Processed 120 nodes
+Processed 150 nodes
+Processed 180 nodes
+Processed 210 nodes
+Processed 240 nodes
+Processed 270 nodes
+Processed 300 nodes
+level-1 complete
+2014-04-14 15:07:15.086367
+Cluster-1 Total nodes: 70 ['1', '40', '41', '42', '43', '44', '45', '46', '47', '48', '50', '51', '52', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '66', '67', '73', '76', '77', '80', '86', '88', '96', '97', '98', '0', '2', '3', '6', '7', '10', '11', '14', '20', '49', '53', '64', '65', '68', '69', '70', '71', '72', '74', '75', '78', '79', '81', '82', '83', '84', '85', '87', '90', '91', '92', '93', '94', '95', '99', '89']
+Cluster-2 Total nodes: 19 ['4', '5', '8', '9', '12', '13', '15', '16', '17', '18', '19', '21', '22', '23', '25', '26', '27', '28', '31']
+Cluster-3 Total nodes: 9 ['24', '29', '30', '32', '33', '34', '35', '36', '38']
+Cluster-4 Total nodes: 2 ['37', '39']
+Cluster-5 Total nodes: 70 ['240', '257', '244', '202', '263', '270', '289', '252', '214', '200', '201', '203', '206', '207', '210', '211', '220', '241', '242', '243', '245', '246', '247', '248', '249', '250', '251', '253', '254', '255', '256', '258', '259', '260', '261', '262', '264', '265', '266', '267', '268', '269', '271', '272', '273', '274', '275', '276', '278', '279', '280', '281', '282', '283', '284', '285', '286', '287', '288', '290', '291', '292', '293', '294', '295', '296', '297', '298', '299', '277']
+Cluster-6 Total nodes: 20 ['217', '236', '235', '227', '226', '204', '205', '208', '209', '212', '213', '215', '216', '218', '219', '221', '222', '223', '225', '228']
+Cluster-7 Total nodes: 69 ['185', '155', '191', '104', '194', '164', '163', '199', '196', '103', '141', '106', '107', '110', '111', '114', '120', '140', '142', '143', '144', '145', '146', '148', '149', '150', '152', '153', '156', '157', '158', '159', '160', '165', '166', '167', '168', '169', '173', '181', '182', '187', '188', '189', '190', '192', '195', '197', '198', '147', '151', '154', '161', '162', '170', '171', '172', '174', '175', '176', '177', '178', '179', '180', '183', '184', '186', '193', '102']
+Cluster-8 Total nodes: 20 ['115', '134', '128', '116', '108', '112', '121', '101', '109', '113', '117', '118', '119', '122', '123', '125', '126', '127', '105', '100']
+Cluster-9 Total nodes: 9 ['137', '132', '133', '136', '124', '129', '130', '135', '138']
+Cluster-10 Total nodes: 8 ['232', '224', '229', '230', '231', '233', '234', '238']
+Cluster-11 Total nodes: 2 ['237', '239']
+Cluster-12 Total nodes: 2 ['131', '139']
+Cluster ID:4244[1, 40, 41, 42, 43, 44, 45, 46, 47, 48] Elements:[1, 40, 41, 42, 43, 44, 45, 46, 47, 48, 50, 51, 52, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 66, 67, 73, 76, 77, 80, 86, 88, 96, 97, 98, 0, 2, 3, 6, 7, 10, 11, 14, 20, 49, 53, 64, 65, 68, 69, 70, 71, 72, 74, 75, 78, 79, 81, 82, 83, 84, 85, 87, 90, 91, 92, 93, 94, 95, 99, 89] coeff:0.80287537918
+Cluster ID:339[4, 5, 8, 9, 12, 13, 15, 16, 17, 18] Elements:[4, 5, 8, 9, 12, 13, 15, 16, 17, 18, 19, 21, 22, 23, 25, 26, 27, 28, 31] coeff:0.0
+Cluster ID:291[24, 29, 30, 32, 33, 34, 35, 36, 38] Elements:[24, 29, 30, 32, 33, 34, 35, 36, 38] coeff:0.0
+Cluster ID:76[37, 39] Elements:[37, 39] coeff:0.0
+Cluster ID:18244[240, 257, 244, 202, 263, 270, 289, 252, 214, 200] Elements:[240, 257, 244, 202, 263, 270, 289, 252, 214, 200, 201, 203, 206, 207, 210, 211, 220, 241, 242, 243, 245, 246, 247, 248, 249, 250, 251, 253, 254, 255, 256, 258, 259, 260, 261, 262, 264, 265, 266, 267, 268, 269, 271, 272, 273, 274, 275, 276, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 277] coeff:0.80287537918
+Cluster ID:4379[217, 236, 235, 227, 226, 204, 205, 208, 209, 212] Elements:[217, 236, 235, 227, 226, 204, 205, 208, 209, 212, 213, 215, 216, 218, 219, 221, 222, 223, 225, 228] coeff:0.0
+Cluster ID:11147[185, 155, 191, 104, 194, 164, 163, 199, 196, 103] Elements:[185, 155, 191, 104, 194, 164, 163, 199, 196, 103, 141, 106, 107, 110, 111, 114, 120, 140, 142, 143, 144, 145, 146, 148, 149, 150, 152, 153, 156, 157, 158, 159, 160, 165, 166, 167, 168, 169, 173, 181, 182, 187, 188, 189, 190, 192, 195, 197, 198, 147, 151, 154, 161, 162, 170, 171, 172, 174, 175, 176, 177, 178, 179, 180, 183, 184, 186, 193, 102] coeff:0.804867085137
+Cluster ID:2339[115, 134, 128, 116, 108, 112, 121, 101, 109, 113] Elements:[115, 134, 128, 116, 108, 112, 121, 101, 109, 113, 117, 118, 119, 122, 123, 125, 126, 127, 105, 100] coeff:0.0
+Cluster ID:1194[137, 132, 133, 136, 124, 129, 130, 135, 138] Elements:[137, 132, 133, 136, 124, 129, 130, 135, 138] coeff:0.0
+Cluster ID:1851[232, 224, 229, 230, 231, 233, 234, 238] Elements:[232, 224, 229, 230, 231, 233, 234, 238] coeff:0.0
+Cluster ID:476[237, 239] Elements:[237, 239] coeff:0.0
+Cluster ID:270[131, 139] Elements:[131, 139] coeff:0.0
+0.80287537918 0.0 0.76572418504
+0.80287537918 0.0 0.795039769419
+0.80287537918 0.0 0.803595312956
+0.80287537918 0.80287537918 0.799078868336
+0.80287537918 0.0 0.623679703489
+0.80287537918 0.804867085137 0.801512331514
+0.80287537918 0.0 0.623357281705
+0.80287537918 0.0 0.710803857046
+0.80287537918 0.0 0.720220481693
+0.80287537918 0.0 0.780573285314
+0.80287537918 0.0 0.780573285314
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.780397776869 0.0 0.766351900948
+0.780397776869 0.0 0.766388916105
+0.780397776869 0.0 0.777869087458
+0.780397776869 0.0 0.777603463663
+level-2 complete
+2014-04-14 15:07:16.769072
+Cluster-1 Total nodes: 300 ['1', '40', '41', '42', '43', '44', '45', '46', '47', '48', '50', '51', '52', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '66', '67', '73', '76', '77', '80', '86', '88', '96', '97', '98', '0', '2', '3', '6', '7', '10', '11', '14', '20', '49', '53', '64', '65', '68', '69', '70', '71', '72', '74', '75', '78', '79', '81', '82', '83', '84', '85', '87', '90', '91', '92', '93', '94', '95', '99', '89', '4', '5', '8', '9', '12', '13', '15', '16', '17', '18', '19', '21', '22', '23', '25', '26', '27', '28', '31', '24', '29', '30', '32', '33', '34', '35', '36', '38', '37', '39', '240', '257', '244', '202', '263', '270', '289', '252', '214', '200', '201', '203', '206', '207', '210', '211', '220', '241', '242', '243', '245', '246', '247', '248', '249', '250', '251', '253', '254', '255', '256', '258', '259', '260', '261', '262', '264', '265', '266', '267', '268', '269', '271', '272', '273', '274', '275', '276', '278', '279', '280', '281', '282', '283', '284', '285', '286', '287', '288', '290', '291', '292', '293', '294', '295', '296', '297', '298', '299', '277', '185', '155', '191', '104', '194', '164', '163', '199', '196', '103', '141', '106', '107', '110', '111', '114', '120', '140', '142', '143', '144', '145', '146', '148', '149', '150', '152', '153', '156', '157', '158', '159', '160', '165', '166', '167', '168', '169', '173', '181', '182', '187', '188', '189', '190', '192', '195', '197', '198', '147', '151', '154', '161', '162', '170', '171', '172', '174', '175', '176', '177', '178', '179', '180', '183', '184', '186', '193', '102', '237', '239', '131', '139', '217', '236', '235', '227', '226', '204', '205', '208', '209', '212', '213', '215', '216', '218', '219', '221', '222', '223', '225', '228', '115', '134', '128', '116', '108', '112', '121', '101', '109', '113', '117', '118', '119', '122', '123', '125', '126', '127', '105', '100', '137', '132', '133', '136', '124', '129', '130', '135', '138', '232', '224', '229', '230', '231', '233', '234', '238']
+hit: 61
+nothit: 32

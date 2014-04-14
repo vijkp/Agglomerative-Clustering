@@ -145,7 +145,7 @@ while clusters_before != clusters_after:
 
 print "level-2 complete."
 
-## filter the noise i.e. remove nodes with 1 degree
+# filter the noise i.e. remove nodes with 1 degree
 for i in clusters:
     temp = G.subgraph(i)
     graph_degrees = temp.degree()
