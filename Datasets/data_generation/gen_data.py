@@ -55,7 +55,7 @@ def add_edges_to_groups(output_graph, groups_list, edges_to_add, prob, level):
 
 if len(sys.argv) < 6:
     print "Invalid number of arguments"
-    print "Example: ./connected_graphs.py <no. of groups> <nodes_per_group> <avg_edges_per_node> <dataset-name>"
+    print "Example: ./connected_graphs.py <no. of groups> <nodes_per_group> <avg_edges_per_node> <dataset-name> [plot graph flag]"
     print "./connected_graphs.py 5 50 10  dataset-name"
     exit()
 
@@ -67,6 +67,11 @@ triangle_prob = 0.8
 edge_addition_prob = 0.1
 dataset_name = sys.argv[4]
 input_prob = float(sys.argv[5])
+if len(sys.argv) >= 7:
+    if sys.argv[6] == "True":
+        plot_graph = True
+else:
+    plot_graph = False
 
 
 if os.path.exists(dataset_name):
@@ -114,10 +119,12 @@ fsf.write("total edges: " + str(total_edges) + "\n")
 fsf.write("total nodes: " + str(total_nodes) + "\n")
 print "total edges:", total_edges
 print "data generation complete"
-if total_nodes <= 600:
-    #nx.draw(output_graph, pos = nx.graphviz_layout(output_graph, prog='fdp'))
-    nx.draw(output_graph)
-    plt.savefig(image_name);
+if plot_graph:
+    plt.axis('off')
+    position = nx.graphviz_layout(output_graph, prog='sfdp')
+    nx.draw_networkx_nodes(output_graph, position, node_size=20, node_color=output_graph.degree().values())
+    nx.draw_networkx_edges(output_graph, position, alpha=0.2)
+    plt.savefig(image_name, bbox_inches='tight', dpi=1000);
     print "plot saved as ", image_name
     plt.clf()
 
