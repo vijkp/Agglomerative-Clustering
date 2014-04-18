@@ -10,6 +10,7 @@ import re
 import Queue
 import networkx as nx
 import datetime
+import math
 from cluster_dbms import Cluster as cl
 
 def check_and_merge_clusters(index, flag = True):
@@ -29,7 +30,7 @@ def check_and_merge_clusters(index, flag = True):
         #    temp_index += 1
         #    continue
         neighbor_list_current = get_neighbor_list_for_group(clusters[temp_index], cluster_dict)
-        jaccard_index_all[temp_index] = compute_jaccardIndex(neighbor_list_given, neighbor_list_current)
+        jaccard_index_all[temp_index] = compute_jaccardIndex2(neighbor_list_given, neighbor_list_current)
         temp_index = temp_index + 1
     # Find the index with highest coefficient and combine them
     max_index = jaccard_index_all.index(max(jaccard_index_all))
@@ -113,12 +114,12 @@ def combine_cluster(cl1, cl2):
 def can_combine_cluster(cl1, cl2):
     neighbor_list_1   = get_neighbor_list_for_group(cl1, cluster_dict) 
     neighbor_list_2   = get_neighbor_list_for_group(cl2, cluster_dict) 
-    jindex = compute_jaccardIndex(neighbor_list_1, neighbor_list_2)
+    jindex = compute_jaccardIndex2(neighbor_list_1, neighbor_list_2)
     print cl1
     print cl2
     print jindex
     
-    if jindex > 0.22:
+    if jindex > jindex_groups:
         print "combined"
         return True
     else: 
@@ -129,6 +130,13 @@ def intersection(a, b):
 
 def union(a, b):
     return list(set(a) | set(b))
+
+def compute_jaccardIndex2(list1, list2):
+    len1 = len(list1)
+    len2 = len(list2)
+    if len1 == 0 or len2 == 0:
+        return 0.0
+    return (float(float(len(intersection(list1, list2)))/(math.sqrt(len1*len2))))
 
 def compute_jaccardIndex(list1, list2):
     number = len(union(list1, list2))
@@ -172,7 +180,7 @@ def main():
             if node_id not in bfs_index:
                 bfs_index[node_id] = 1
                 bfs_queue.put(node_id)
-        #neighbor_dict[str(bfs_node)].append(bfs_node)
+        neighbor_dict[str(bfs_node)].append(str(bfs_node))
         flag = 0
         # Check if this bfs_node can be merged with previous clusters
         for cluster in clusters:
@@ -196,23 +204,43 @@ def main():
     for i in clusters:
         print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
         count += 1
-   
+    
+    sortedclusters = sorted(clusters, lambda x,y: 1 if len(x)>len(y) else -1 if len(x)<len(y) else 0)
+    
+    count = 1
+    for i in sortedclusters:
+        print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        count += 1
+
+    clusters = sortedclusters
+
     # load all the clusters into a dictionary
     generate_cluster_dict(clusters, cluster_dict, G)
 
-    ## combine clusters in the third pass
-    clusters_before = len(clusters)
+    ## combine clusters ever more
+    total_clusters = len(clusters)
+    clusters_before = total_clusters
     clusters_after = 0
-    while (clusters_before != clusters_after) and (clusters_before >= 4):
+    while clusters_before != clusters_after:
         clusters_before = clusters_after
-        temp_index = 0   
-        while temp_index  < len(clusters):
-            if check_and_merge_clusters(temp_index, False) == False:
-                temp_index = temp_index + 1
-        clusters_after = len(clusters)
-        if clusters_after < 4:
-            break
-       
+        temp_index1 = 0    
+        while temp_index1  < total_clusters:
+            temp_cluster1 = clusters[temp_index1]
+            temp_index2   = 1 
+            while (temp_index1 < len(clusters)) and (temp_index2 < len(clusters)):
+                temp_cluster2 = clusters[temp_index2]
+                #print str(temp_index1) + " " + str(temp_index2)
+                if (temp_index1 != temp_index2):
+                    if (can_combine_cluster(temp_cluster1, temp_cluster2) == True):
+                        combine_cluster(temp_index1, temp_index2)
+                        continue
+                temp_index2 = temp_index2 + 1
+            temp_index1 = temp_index1 + 1
+            total_clusters = len(clusters)
+            if total_clusters < 5:
+                break
+            clusters_after = total_clusters
+    
     print "level-2 complete"
     print datetime.datetime.now()
     # Print clusters
@@ -229,8 +257,8 @@ cluster_dict = {}
 hit = 0
 nothit = 0
 neighbor_dict = {}
-jindex_threshold = 0.25
-jindex_groups = 0.45
+jindex_threshold = 0.3
+jindex_groups = 0.4
 
 if len(sys.argv) < 2:
         print "Error: Invalid number of arguments"

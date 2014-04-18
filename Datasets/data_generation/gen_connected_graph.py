@@ -59,7 +59,13 @@ Inodes = I.nodes()
 Inode_count = I.number_of_nodes()
 print "Edges in group I: ", I.number_of_edges()
 
-R=union_all((G,H,I))
+J = nx.powerlaw_cluster_graph(nodes_per_group, random_edges_per_node, triangle_prob,10)
+J = nx.convert_node_labels_to_integers(J,first_label=nodes_per_group*3)
+Jnodes = J.nodes()
+Jnode_count = J.number_of_nodes()
+print "Edges in group J: ", J.number_of_edges()
+
+R=union_all((G,H,I,J))
 
 count = 0
 for i in Gnodes:
@@ -77,6 +83,13 @@ for i in Hnodes:
             count = count+1
 
 for i in Inodes:
+    random_Jnodes = random.sample(Jnodes, int(random_edges_per_node*.5))
+    for j in random_Jnodes:
+        if random.random() < edge_addition_prob:
+            R.add_edge(i, j)
+            count = count+1
+
+for i in Jnodes:
     random_Gnodes = random.sample(Gnodes, int(random_edges_per_node*.5))
     for j in random_Gnodes:
         if random.random() < edge_addition_prob:
@@ -86,6 +99,7 @@ for i in Inodes:
 total_edges = R.number_of_edges()
 print "total edges:", total_edges
 print "new edges across two groups: ", count
+print "data generation complete"
 nx.draw(R)
 plt.savefig(image_name);
 print "plot saved as ", image_name
