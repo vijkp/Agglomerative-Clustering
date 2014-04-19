@@ -260,9 +260,9 @@ neighbor_dict = {}
 jindex_threshold = 0.3
 jindex_groups = 0.4
 
-if len(sys.argv) < 2:
+if len(sys.argv) < 1:
         print "Error: Invalid number of arguments"
-        print "Usage: ./bfs_clustering.py <filepath to pckl file>"
+        print "Usage: ./improved_neo4j2.py"
         exit()
 
 # Load graph data from file
