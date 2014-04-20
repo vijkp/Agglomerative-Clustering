@@ -34,12 +34,12 @@ def check_and_merge_clusters(index, flag = True):
         temp_index = temp_index + 1
     # Find the index with highest coefficient and combine them
     max_index = jaccard_index_all.index(max(jaccard_index_all))
-    print "max: " + str(jaccard_index_all[max_index])     
-    print clusters[index]
-    print clusters[max_index]
+    #print "max: " + str(jaccard_index_all[max_index])     
+    #print clusters[index]
+    #print clusters[max_index]
 
     if jaccard_index_all[max_index] > jindex_groups:
-        print "combined"
+        #print "combined"
         if index < max_index:
             combine_cluster(index, max_index)
         else: 
@@ -115,12 +115,12 @@ def can_combine_cluster(cl1, cl2):
     neighbor_list_1   = get_neighbor_list_for_group(cl1, cluster_dict) 
     neighbor_list_2   = get_neighbor_list_for_group(cl2, cluster_dict) 
     jindex = compute_jaccardIndex2(neighbor_list_1, neighbor_list_2)
-    print cl1
-    print cl2
-    print jindex
+    #print cl1
+    #print cl2
+    #print jindex
     
     if jindex > jindex_groups:
-        print "combined"
+        #print "combined"
         return True
     else: 
         return False
@@ -163,7 +163,7 @@ def main():
     bfs_index["1"] = 1
 
     # Start processing nodes from the traverse queue
-    nodes_per_group = int(G.number_of_nodes()/10)
+    nodes_per_group = 25
     count = 1
     while bfs_queue.empty() == False:
         bfs_node = bfs_queue.get()
@@ -267,13 +267,13 @@ if len(sys.argv) < 1:
 
 # Load graph data from file
 # data_file = "../Datasets/dataset-small/nodes-90/nodes-90.pckl"
-data_file = sys.argv[1]
-fd = open(data_file, "r")
-graph = pickle.load(fd);
+#data_file = sys.argv[1]
+#fd = open(data_file, "r")
+#graph = pickle.load(fd);
 
 G = nx.Graph()
-G.add_nodes_from(graph.nodes())
-G.add_edges_from(graph.edges())
+#G.add_nodes_from(graph.nodes())
+#G.add_edges_from(graph.edges())
 
 if __name__ == "__main__":
     main()
