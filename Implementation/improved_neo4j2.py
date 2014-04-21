@@ -102,7 +102,7 @@ def generate_cluster_dict(clusters, cluster_dict, graph):
         id = get_id(i_int)
         if id not in cluster_dict:
             cluster_dict[id] = cl(id, i, neighbor_list)
-            cluster_dict[id].show()
+            #cluster_dict[id].show()
 
 def combine_cluster(cl1, cl2):
     global clusters   
@@ -111,13 +111,29 @@ def combine_cluster(cl1, cl2):
     clusters[cl1] = clusters[cl1] + clusters[cl2]
     clusters.remove(clusters[cl2])
 
+def can_combine_cluster2(cl1, cl2, flag=False):
+    neighbor_list_1   = get_neighbor_list_for_group(cl1, cluster_dict) 
+    neighbor_match = intersection(neighbor_list_1, cl2)
+    neighbor_match_ratio = float(float(len(neighbor_match))/float(len(neighbor_list_1)))
+
+    if flag:
+        #print cl1
+        #print cl2
+        #print neighbor_list_1
+        #print neighbor_match
+        print neighbor_match_ratio
+
+    if neighbor_match_ratio > neighbor_match_th:
+        if flag:
+            print "combined"
+        return True
+    else:
+        return False
+
 def can_combine_cluster(cl1, cl2):
     neighbor_list_1   = get_neighbor_list_for_group(cl1, cluster_dict) 
     neighbor_list_2   = get_neighbor_list_for_group(cl2, cluster_dict) 
     jindex = compute_jaccardIndex2(neighbor_list_1, neighbor_list_2)
-    #print cl1
-    #print cl2
-    #print jindex
     
     if jindex > jindex_groups:
         #print "combined"
@@ -155,6 +171,7 @@ def main():
     
     global clusters
     global cluster_dict
+    global neighbor_match_th
     # Login to database
     graph_db = neo4j.GraphDatabaseService("http://localhost:7474/db/data/")
 
@@ -200,12 +217,12 @@ def main():
     print datetime.datetime.now()
 
     # Print clusters
-    count = 1
-    for i in clusters:
-        print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
-        count += 1
+    #count = 1
+    #for i in clusters:
+    #    print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+    #    count += 1
     
-    sortedclusters = sorted(clusters, lambda x,y: 1 if len(x)>len(y) else -1 if len(x)<len(y) else 0)
+    sortedclusters = sorted(clusters, lambda x,y: 1 if len(x)<len(y) else -1 if len(x)>len(y) else 0)
     
     count = 1
     for i in sortedclusters:
@@ -222,25 +239,86 @@ def main():
     clusters_before = total_clusters
     clusters_after = 0
     while clusters_before != clusters_after:
+        not_joined = 0
         clusters_before = clusters_after
-        temp_index1 = 0    
-        while temp_index1  < total_clusters:
+        temp_index1 = total_clusters -1 
+        while temp_index1 > 1:
             temp_cluster1 = clusters[temp_index1]
-            temp_index2   = 1 
-            while (temp_index1 < len(clusters)) and (temp_index2 < len(clusters)):
+            temp_index2   = 0
+            while temp_index1 > temp_index2:
                 temp_cluster2 = clusters[temp_index2]
-                #print str(temp_index1) + " " + str(temp_index2)
-                if (temp_index1 != temp_index2):
-                    if (can_combine_cluster(temp_cluster1, temp_cluster2) == True):
-                        combine_cluster(temp_index1, temp_index2)
-                        continue
+                #print "inner inner loop "  + str(temp_index1) + " " + str(temp_index2) + " " + str(len(clusters))
+                if (can_combine_cluster2(temp_cluster1, temp_cluster2) == True):
+                    combine_cluster(temp_index2, temp_index1)
+                    break
                 temp_index2 = temp_index2 + 1
-            temp_index1 = temp_index1 + 1
+                if temp_index1 == temp_index2:
+                    not_joined += 1
+                    break
             total_clusters = len(clusters)
-            if total_clusters < 5:
-                break
-            clusters_after = total_clusters
+            temp_index1 = total_clusters -1 - not_joined 
+        total_clustes = len(clusters)
+        if total_clusters < 5:
+            break
+        clusters_after = total_clusters
     
+    # Print clusters
+    count = 1
+    for i in clusters:
+        print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        count += 1
+
+    ## combine clusters ever more
+    #total_clusters = len(clusters)
+    #clusters_before = total_clusters
+    #clusters_after = 0
+    #while clusters_before != clusters_after:
+    #    clusters_before = clusters_after
+    #   temp_index1 = 0   
+    #   while temp_index1  < total_clusters:
+    #       temp_cluster1 = clusters[temp_index1]
+    #        temp_index2   = 1 
+    #        while (temp_index1 < len(clusters)) and (temp_index2 < len(clusters)):
+    #            temp_cluster2 = clusters[temp_index2]
+     #           #print str(temp_index1) + " " + str(temp_index2)
+      #          if (temp_index1 != temp_index2):
+      #              if (can_combine_cluster(temp_cluster1, temp_cluster2) == True):
+      #                  combine_cluster(temp_index2, temp_index1)
+      #                  continue
+      #          temp_index2 = temp_index2 + 1
+      #      temp_index1 = temp_index1 + 1
+      #      total_clusters = len(clusters)
+      #      if total_clusters < 5:
+      #          break
+      #      clusters_after = total_clusters
+    neighbor_match_th = 0.3 
+    total_clusters = len(clusters)
+    clusters_before = total_clusters
+    clusters_after = 0
+    while clusters_before != clusters_after:
+        not_joined = 0
+        clusters_before = clusters_after
+        temp_index1 = total_clusters -1 
+        while temp_index1 > 1:
+            temp_cluster1 = clusters[temp_index1]
+            temp_index2   = 0
+            while temp_index1 > temp_index2:
+                temp_cluster2 = clusters[temp_index2]
+                print "inner inner loop "  + str(temp_index1) + " " + str(temp_index2) + " " + str(len(clusters))
+                if (can_combine_cluster2(temp_cluster1, temp_cluster2, True) == True):
+                    combine_cluster(temp_index2, temp_index1)
+                    break
+                temp_index2 = temp_index2 + 1
+                if temp_index1 == temp_index2:
+                    not_joined += 1
+                    break
+            total_clusters = len(clusters)
+            temp_index1 = total_clusters -1 - not_joined 
+        total_clustes = len(clusters)
+        if total_clusters < 5:
+            break
+        clusters_after = total_clusters
+
     print "level-2 complete"
     print datetime.datetime.now()
     # Print clusters
@@ -250,6 +328,10 @@ def main():
         count += 1
     print "hit: " + str(hit)
     print "nothit: " + str(nothit)
+    f = open(outputfile, 'w')
+    pickle.dump(clusters, f)
+    f.close()
+    print ("output clusters saveed in pckl file")
 
 # Globals
 clusters = []
@@ -258,13 +340,15 @@ hit = 0
 nothit = 0
 neighbor_dict = {}
 jindex_threshold = 0.3
-jindex_groups = 0.4
+jindex_groups = 0.75
+neighbor_match_th = 0.4
 
-if len(sys.argv) < 1:
+if len(sys.argv) < 2:
         print "Error: Invalid number of arguments"
-        print "Usage: ./improved_neo4j2.py"
+        print "Usage: ./improved_neo4j2.py outputfile_name"
         exit()
 
+outputfile = sys.argv[1] + ".pckl"
 # Load graph data from file
 # data_file = "../Datasets/dataset-small/nodes-90/nodes-90.pckl"
 #data_file = sys.argv[1]

@@ -55,7 +55,7 @@ def add_edges_to_groups(output_graph, groups_list, edges_to_add, prob, level):
 
 if len(sys.argv) < 6:
     print "Invalid number of arguments"
-    print "Example: ./connected_graphs.py <no. of groups> <nodes_per_group> <avg_edges_per_node> <dataset-name> [plot graph flag]"
+    print "Example: ./connected_graphs.py <no. of groups> <nodes_per_group> <avg_edges_per_node> <dataset-name> <edge_addition_prob> [plot graph flag]"
     print "./connected_graphs.py 5 50 10  dataset-name"
     exit()
 
