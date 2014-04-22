@@ -12,6 +12,7 @@ import networkx as nx
 import datetime
 import math
 from cluster_dbms import Cluster as cl
+import random
 
 def check_and_merge_clusters(index, flag = True):
     global clusters
@@ -112,16 +113,21 @@ def combine_cluster(cl1, cl2):
     clusters.remove(clusters[cl2])
 
 def can_combine_cluster2(cl1, cl2, flag=False):
+    if len(cl2) > len(cl2):
+        temp = cl2
+        cl2 = cl1
+        cl1 = cl2
+
     neighbor_list_1   = get_neighbor_list_for_group(cl1, cluster_dict) 
     neighbor_match = intersection(neighbor_list_1, cl2)
     neighbor_match_ratio = float(float(len(neighbor_match))/float(len(neighbor_list_1)))
 
-    if flag:
+    #if flag:
         #print cl1
         #print cl2
         #print neighbor_list_1
         #print neighbor_match
-        print neighbor_match_ratio
+        #print neighbor_match_ratio
 
     if neighbor_match_ratio > neighbor_match_th:
         if flag:
@@ -165,7 +171,7 @@ def get_query_string(bfs_node):
 
 def main():
     # Variables
-    print datetime.datetime.now() 
+    start_time = datetime.datetime.now() 
     bfs_index = {}
     bfs_queue = Queue.Queue()
     
@@ -174,18 +180,28 @@ def main():
     global neighbor_match_th
     # Login to database
     graph_db = neo4j.GraphDatabaseService("http://localhost:7474/db/data/")
+    total_nodes = graph_db.order
+   
+    # Initial seed to start the traversal 
+    if total_nodes >= 40:
+        random_sample = random.sample(range(total_nodes), 20)
+    else:
+        random_sample = random.sample(range(total_nodes), 2)
 
-    # Initial seed to start the traversal
-    bfs_queue.put("1")
-    bfs_index["1"] = 1
+    print "Random nodes to start the graph travresal {}".format(random_sample)
+    for i in random_sample:
+        bfs_queue.put(str(i))
+        bfs_index[str(i)] = 1
 
     # Start processing nodes from the traverse queue
-    nodes_per_group = 25
+    nodes_per_group = int(total_nodes*0.1)
     count = 1
     while bfs_queue.empty() == False:
         bfs_node = bfs_queue.get()
         if count%nodes_per_group == 0:
-            print "Processed " + str(count) + " nodes"
+            current_time = datetime.datetime.now()
+            time_taken = int(datetime.timedelta.total_seconds(current_time - start_time))
+            print "Processed {} nodes in {} seconds".format(count, time_taken)
         count += 1
         neighbor_dict[str(bfs_node)] = []
         query = neo4j.CypherQuery(graph_db, get_query_string(bfs_node)).execute()
@@ -213,9 +229,9 @@ def main():
         if flag == 0:
             clusters.append([bfs_node])
     
-    print "level-1 complete"
-    print datetime.datetime.now()
-
+    current_time = datetime.datetime.now()
+    time_taken = datetime.timedelta.total_seconds(current_time - start_time)
+    print "level-1 completes in {}".format(time_taken)
     # Print clusters
     #count = 1
     #for i in clusters:
@@ -262,6 +278,12 @@ def main():
             break
         clusters_after = total_clusters
     
+    current_time = datetime.datetime.now()
+    time_taken = int(datetime.timedelta.total_seconds(current_time - start_time))
+    print "level-2 completes in {}".format(time_taken)
+
+    sortedclusters = sorted(clusters, lambda x,y: 1 if len(x)<len(y) else -1 if len(x)>len(y) else 0)
+    clusters = sortedclusters
     # Print clusters
     count = 1
     for i in clusters:
@@ -304,7 +326,7 @@ def main():
             temp_index2   = 0
             while temp_index1 > temp_index2:
                 temp_cluster2 = clusters[temp_index2]
-                print "inner inner loop "  + str(temp_index1) + " " + str(temp_index2) + " " + str(len(clusters))
+                #print "inner inner loop "  + str(temp_index1) + " " + str(temp_index2) + " " + str(len(clusters))
                 if (can_combine_cluster2(temp_cluster1, temp_cluster2, True) == True):
                     combine_cluster(temp_index2, temp_index1)
                     break
@@ -319,8 +341,9 @@ def main():
             break
         clusters_after = total_clusters
 
-    print "level-2 complete"
-    print datetime.datetime.now()
+    current_time = datetime.datetime.now()
+    time_taken = int(datetime.timedelta.total_seconds(current_time - start_time))
+    print "level-3 completes in {}".format(time_taken)
     # Print clusters
     count = 1
     for i in clusters:

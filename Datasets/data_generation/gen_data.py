@@ -119,12 +119,13 @@ fsf.write("total edges: " + str(total_edges) + "\n")
 fsf.write("total nodes: " + str(total_nodes) + "\n")
 print "total edges:", total_edges
 print "data generation complete"
+
 if plot_graph:
     plt.axis('off')
     position = nx.graphviz_layout(output_graph, prog='sfdp')
     nx.draw_networkx_nodes(output_graph, position, node_size=20, node_color=output_graph.degree().values())
     nx.draw_networkx_edges(output_graph, position, alpha=0.2)
-    plt.savefig(image_name, bbox_inches='tight', dpi=1000);
+    plt.savefig(image_name, bbox_inches='tight', dpi=1000)
     print "plot saved as ", image_name
     plt.clf()
 
