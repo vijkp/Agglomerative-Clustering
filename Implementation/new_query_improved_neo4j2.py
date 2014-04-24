@@ -188,6 +188,7 @@ def main():
     # Login to database
     graph_db = neo4j.GraphDatabaseService("http://localhost:7474/db/data/")
     total_nodes = graph_db.order
+    print "Total nodes in the system: {}".format(total_nodes)
    
     # Initial seed to start the traversal 
     if total_nodes >= 40:
