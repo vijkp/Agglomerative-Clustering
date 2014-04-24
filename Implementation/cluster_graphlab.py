@@ -191,9 +191,11 @@ def main(inputfile):
     # start graphlab
     startGraphlab(inputfile)
     
+    fdlog = open(outputlog, "w")
     total_nodes = getTotalNodes()
     print "Total nodes in the system: {}".format(total_nodes)
-   
+    fdlog.write("Total nodes in the system: {}\n".format(total_nodes))
+
     # Initial seed to start the traversal 
     if total_nodes >= 40:
         random_sample = random.sample(range(total_nodes), 20)
@@ -212,7 +214,7 @@ def main(inputfile):
         bfs_node = bfs_queue.get()
         if count%nodes_per_group == 0:
             current_time = datetime.datetime.now()
-            time_taken = int(datetime.timedelta.total_seconds(current_time - start_time))
+            time_taken = float(datetime.timedelta.total_seconds(current_time - start_time))
             print "Processed {} nodes in {} seconds".format(count, time_taken)
         count += 1
         neighbor_dict[str(bfs_node)] = []
@@ -241,19 +243,16 @@ def main(inputfile):
             clusters.append([bfs_node])
     
     current_time = datetime.datetime.now()
-    time_taken = datetime.timedelta.total_seconds(current_time - start_time)
+    time_taken = float(datetime.timedelta.total_seconds(current_time - start_time))
     print "level-1 completes in {}".format(time_taken)
-    # Print clusters
-    #count = 1
-    #for i in clusters:
-    #    print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
-    #    count += 1
+    fdlog.write("\nlevel-1 completes in {} seconds\n".format(time_taken))
     
     sortedclusters = sorted(clusters, lambda x,y: 1 if len(x)<len(y) else -1 if len(x)>len(y) else 0)
     
     count = 1
     for i in sortedclusters:
         print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        fdlog.write("Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i) + "\n")
         count += 1
 
     clusters = sortedclusters
@@ -294,14 +293,16 @@ def main(inputfile):
         clusters_after = total_clusters
     
     current_time = datetime.datetime.now()
-    time_taken = int(datetime.timedelta.total_seconds(current_time - start_time))
+    time_taken = float(datetime.timedelta.total_seconds(current_time - start_time))
     print "level-2 completes in {}".format(time_taken)
+    fdlog.write( "\nlevel-2 completes in {} seconds\n".format(time_taken))
     sortedclusters = sorted(clusters, lambda x,y: 1 if len(x)<len(y) else -1 if len(x)>len(y) else 0)
     clusters = sortedclusters
     # Print clusters
     count = 1
     for i in clusters:
         print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        fdlog.write("Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i) + "\n")
         count += 1
 
     neighbor_match_th = 0.2 
@@ -336,12 +337,15 @@ def main(inputfile):
         clusters_after = total_clusters
 
     current_time = datetime.datetime.now()
-    time_taken = int(datetime.timedelta.total_seconds(current_time - start_time))
+    time_taken = float(datetime.timedelta.total_seconds(current_time - start_time))
     print "level-3 completes in {}".format(time_taken)
+    fdlog.write("\nlevel-3 completes in {}\n".format(time_taken))
+    
     # Print clusters
     count = 1
     for i in clusters:
         print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        fdlog.write("Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i) + "\n")
         count += 1
     print "hit: " + str(hit)
     print "nothit: " + str(nothit)
@@ -349,6 +353,7 @@ def main(inputfile):
     pickle.dump(clusters, f)
     f.close()
     print "output clusters saved in pckl file {}".format(outputfile)
+    fdlog.write("\nTotal time of execution: {} seconds\n".format(time_taken))
 
 # Globals
 clusters = []
@@ -366,6 +371,7 @@ if len(sys.argv) < 3:
         exit()
 
 outputfile = sys.argv[2] + "_clusters.pckl"
+outputlog = sys.argv[2] + "_result.log"
 
 
 if __name__ == "__main__":

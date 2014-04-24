@@ -188,11 +188,11 @@ def main():
     # Login to database
     graph_db = neo4j.GraphDatabaseService("http://localhost:7474/db/data/")
     
-    fdlog = open(outputlog, "w")
-    
+    fdlog = open(outputlog, "w") 
     total_nodes = graph_db.order
+    print "Total nodes in the system: {}".format(total_nodes)
     fdlog.write("Total nodes in the system: {}\n".format(total_nodes))
-   
+
     # Initial seed to start the traversal 
     if total_nodes >= 40:
         random_sample = random.sample(range(total_nodes), 20)
@@ -246,11 +246,6 @@ def main():
     time_taken = float(datetime.timedelta.total_seconds(current_time - start_time))
     print "level-1 completes in {}".format(time_taken)
     fdlog.write("\nlevel-1 completes in {} seconds\n".format(time_taken))
-# Print clusters
-    #count = 1
-    #for i in clusters:
-    #    print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
-    #    count += 1
     
     sortedclusters = sorted(clusters, lambda x,y: 1 if len(x)<len(y) else -1 if len(x)>len(y) else 0)
     
