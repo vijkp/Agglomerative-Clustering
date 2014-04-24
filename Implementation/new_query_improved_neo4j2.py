@@ -167,15 +167,15 @@ def compute_jaccardIndex(list1, list2):
     return (float(float(len(intersection(list1, list2)))/float(number)))
 
 def get_query_string(bfs_node):
-    result = "START b=node:community('id:"+str(bfs_node) + "') MATCH b-[:KNOWS]-a return a"
+    result = "START b=node:community(\'id:" + str(bfs_node) + "\') MATCH b-[:KNOWS]-a return a"
     return result
+    #return "MATCH (a)-[r]-(b) WHERE b.id="+"\""+str(bfs_node)+"\""+" RETURN a"
 
 def main():
     # Variables
     start_time = datetime.datetime.now() 
     bfs_index = {}
     bfs_queue = Queue.Queue()
-    waiting_queue = Queue.Queue()
     
     global clusters
     global cluster_dict
@@ -198,50 +198,18 @@ def main():
     # Start processing nodes from the traverse queue
     nodes_per_group = int(total_nodes*0.1)
     count = 1
-    batch = neo4j.ReadBatch(graph_db)
-
     while bfs_queue.empty() == False:
         bfs_node = bfs_queue.get()
+        if count%nodes_per_group == 0:
+            current_time = datetime.datetime.now()
+            time_taken = int(datetime.timedelta.total_seconds(current_time - start_time))
+            print "Processed {} nodes in {} seconds".format(count, time_taken)
         count += 1
         neighbor_dict[str(bfs_node)] = []
-        batch.append_cypher(get_query_string(bfs_node))
-        waiting_queue.put(str(bfs_node))
-        if (count%10 == 0) or (bfs_queue.empty() == True):
-        #if (bfs_queue.empty() == True):
-            #print "no. of queries sent {}".format(waiting_queue.qsize())
-            result = batch.submit()
-            for each_result in result:
-                bfs_node_result = waiting_queue.get()
-                for r in each_result:
-                    m = re.findall("\"id\":(.*?)}", str(r.a))
-                    node_id = m[0].strip("\"")
-                    neighbor_dict[str(bfs_node_result)].append(node_id)
-                    # Index and queue for bfs traversal
-                    if node_id not in bfs_index:
-                        bfs_index[node_id] = 1
-                        bfs_queue.put(node_id)
-
-                neighbor_dict[str(bfs_node_result)].append(str(bfs_node_result))
-                flag = 0
-                # Check if this bfs_node can be merged with previous clusters
-                for cluster in clusters:
-                    union_list = []
-                    for node in cluster:
-                        union_list = union(union_list, neighbor_dict[str(node)])
-                    index = compute_jaccardIndex(union_list, neighbor_dict[str(bfs_node_result)])
-                    if index >= jindex_threshold:
-                        flag = 1
-                        cluster.append(bfs_node_result)
-                        break
-                # If node has not found a cluster to merge with, create a new cluster
-                if flag == 0:
-                    clusters.append([bfs_node_result])
-            # clear the batch    
-            batch.clear()
-        """
         query = neo4j.CypherQuery(graph_db, get_query_string(bfs_node)).execute()
+
         for r in query:
-            m = re.findall("\"id\":(.*?)}", str(r.a))
+            m = re.findall(r"\"id\":(.*?)}", str(r.a))
             node_id = m[0].strip("\"")
             neighbor_dict[str(bfs_node)].append(node_id)
             # Index and queue for bfs traversal
@@ -249,10 +217,6 @@ def main():
                 bfs_index[node_id] = 1
                 bfs_queue.put(node_id)
         neighbor_dict[str(bfs_node)].append(str(bfs_node))
-        if count%nodes_per_group == 0:
-            current_time = datetime.datetime.now()
-            time_taken = int(datetime.timedelta.total_seconds(current_time - start_time))
-            print "Processed {} nodes in {} seconds".format(count, time_taken)
         flag = 0
         # Check if this bfs_node can be merged with previous clusters
         for cluster in clusters:
@@ -267,7 +231,7 @@ def main():
         # If node has not found a cluster to merge with, create a new cluster
         if flag == 0:
             clusters.append([bfs_node])
-    """
+    
     current_time = datetime.datetime.now()
     time_taken = datetime.timedelta.total_seconds(current_time - start_time)
     print "level-1 completes in {}".format(time_taken)
@@ -410,7 +374,7 @@ if len(sys.argv) < 1:
         print "Usage: ./improved_neo4j2.py outputfile_name"
         exit()
 
-outputfile =  "output.pckl"
+outputfile = "output.pckl"
 # Load graph data from file
 # data_file = "../Datasets/dataset-small/nodes-90/nodes-90.pckl"
 #data_file = sys.argv[1]
