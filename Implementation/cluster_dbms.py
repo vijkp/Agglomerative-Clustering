@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # Class for defining cluster and its nodes along with other information
-import networkx as nx
 
 class Cluster:
     """Cluster class is a group of nodes"""
