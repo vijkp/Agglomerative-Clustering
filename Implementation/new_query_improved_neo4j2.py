@@ -93,7 +93,7 @@ def add_list_to_cluster_dict(cl_id, cllist, cluster_dict):
 def get_id(list):
     return str(sum(list)) + str(list[0:10])
 
-def generate_cluster_dict(clusters, cluster_dict, graph):
+def generate_cluster_dict(clusters, cluster_dict):
     for i in clusters:
         i_int = []
         neighbor_list = []
@@ -112,8 +112,18 @@ def combine_cluster(cl1, cl2):
     clusters[cl1] = clusters[cl1] + clusters[cl2]
     clusters.remove(clusters[cl2])
 
-def can_combine_cluster2(cl1, cl2, flag=False):
-    if len(cl2) > len(cl2):
+def can_combine_cluster2(cl1, cl2, avgl, flag=False):
+    l1 = len(cl1)
+    l2 = len(cl2)
+     
+    if (l1 > avgl) and (l2 > avgl):
+        return False
+
+    if l2 < 3:
+        #print "less than 3"
+        return False
+
+    if l1 > l2:
         temp = cl2
         cl2 = cl1
         cl1 = cl2
@@ -122,12 +132,8 @@ def can_combine_cluster2(cl1, cl2, flag=False):
     neighbor_match = intersection(neighbor_list_1, cl2)
     neighbor_match_ratio = float(float(len(neighbor_match))/float(len(neighbor_list_1)))
 
-    #if flag:
-        #print cl1
-        #print cl2
-        #print neighbor_list_1
-        #print neighbor_match
-        #print neighbor_match_ratio
+    if flag:
+        print "cl1: {} cl2: {} ng1: {} nm: {} ratio: {}".format(len(cl1), len(cl2), len(neighbor_list_1), len(neighbor_match), neighbor_match_ratio)
 
     if neighbor_match_ratio > neighbor_match_th:
         if flag:
@@ -169,7 +175,6 @@ def compute_jaccardIndex(list1, list2):
 def get_query_string(bfs_node):
     result = "START b=node:community(\'id:" + str(bfs_node) + "\') MATCH b-[:KNOWS]-a return a"
     return result
-    #return "MATCH (a)-[r]-(b) WHERE b.id="+"\""+str(bfs_node)+"\""+" RETURN a"
 
 def main():
     # Variables
@@ -223,8 +228,9 @@ def main():
             union_list = []
             for node in cluster:
                 union_list = union(union_list, neighbor_dict[str(node)])
-            index = compute_jaccardIndex(union_list, neighbor_dict[str(bfs_node)])
+            index = compute_jaccardIndex2(union_list, neighbor_dict[str(bfs_node)])
             if index >= jindex_threshold:
+                #print index
                 flag = 1
                 cluster.append(bfs_node)
                 break
@@ -251,12 +257,16 @@ def main():
     clusters = sortedclusters
 
     # load all the clusters into a dictionary
-    generate_cluster_dict(clusters, cluster_dict, G)
+    generate_cluster_dict(clusters, cluster_dict)
 
     ## combine clusters ever more
     total_clusters = len(clusters)
     clusters_before = total_clusters
     clusters_after = 0
+    maxlen = len(sortedclusters[0])
+    minlen = len(sortedclusters[total_clusters -1])
+    avglen = int((minlen+maxlen)*0.5)
+    print "avg length: {}".format(avglen)
     while clusters_before != clusters_after:
         not_joined = 0
         clusters_before = clusters_after
@@ -267,7 +277,7 @@ def main():
             while temp_index1 > temp_index2:
                 temp_cluster2 = clusters[temp_index2]
                 #print "inner inner loop "  + str(temp_index1) + " " + str(temp_index2) + " " + str(len(clusters))
-                if (can_combine_cluster2(temp_cluster1, temp_cluster2) == True):
+                if (can_combine_cluster2(temp_cluster1, temp_cluster2, avglen) == True):
                     combine_cluster(temp_index2, temp_index1)
                     break
                 temp_index2 = temp_index2 + 1
@@ -284,7 +294,6 @@ def main():
     current_time = datetime.datetime.now()
     time_taken = int(datetime.timedelta.total_seconds(current_time - start_time))
     print "level-2 completes in {}".format(time_taken)
-
     sortedclusters = sorted(clusters, lambda x,y: 1 if len(x)<len(y) else -1 if len(x)>len(y) else 0)
     clusters = sortedclusters
     # Print clusters
@@ -293,33 +302,13 @@ def main():
         print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
         count += 1
 
-    ## combine clusters ever more
-    #total_clusters = len(clusters)
-    #clusters_before = total_clusters
-    #clusters_after = 0
-    #while clusters_before != clusters_after:
-    #    clusters_before = clusters_after
-    #   temp_index1 = 0   
-    #   while temp_index1  < total_clusters:
-    #       temp_cluster1 = clusters[temp_index1]
-    #        temp_index2   = 1 
-    #        while (temp_index1 < len(clusters)) and (temp_index2 < len(clusters)):
-    #            temp_cluster2 = clusters[temp_index2]
-     #           #print str(temp_index1) + " " + str(temp_index2)
-      #          if (temp_index1 != temp_index2):
-      #              if (can_combine_cluster(temp_cluster1, temp_cluster2) == True):
-      #                  combine_cluster(temp_index2, temp_index1)
-      #                  continue
-      #          temp_index2 = temp_index2 + 1
-      #      temp_index1 = temp_index1 + 1
-      #      total_clusters = len(clusters)
-      #      if total_clusters < 5:
-      #          break
-      #      clusters_after = total_clusters
-    neighbor_match_th = 0.3 
+    neighbor_match_th = 0.2 
     total_clusters = len(clusters)
     clusters_before = total_clusters
     clusters_after = 0
+    minlen = len(sortedclusters[total_clusters -1])
+    avglen = int((minlen+maxlen)*0.5)
+    print "avg length: {}".format(avglen)
     while clusters_before != clusters_after:
         not_joined = 0
         clusters_before = clusters_after
@@ -330,7 +319,7 @@ def main():
             while temp_index1 > temp_index2:
                 temp_cluster2 = clusters[temp_index2]
                 #print "inner inner loop "  + str(temp_index1) + " " + str(temp_index2) + " " + str(len(clusters))
-                if (can_combine_cluster2(temp_cluster1, temp_cluster2, True) == True):
+                if (can_combine_cluster2(temp_cluster1, temp_cluster2, avglen, False) == True):
                     combine_cluster(temp_index2, temp_index1)
                     break
                 temp_index2 = temp_index2 + 1
@@ -357,7 +346,7 @@ def main():
     f = open(outputfile, 'w')
     pickle.dump(clusters, f)
     f.close()
-    print ("output clusters saveed in pckl file")
+    print "output clusters saved in pckl file {}".format(outputfile)
 
 # Globals
 clusters = []
@@ -367,23 +356,15 @@ nothit = 0
 neighbor_dict = {}
 jindex_threshold = 0.3
 jindex_groups = 0.75
-neighbor_match_th = 0.4
+neighbor_match_th = 0.3
 
-if len(sys.argv) < 1:
+if len(sys.argv) < 2:
         print "Error: Invalid number of arguments"
         print "Usage: ./improved_neo4j2.py outputfile_name"
         exit()
 
-outputfile = "output.pckl"
-# Load graph data from file
-# data_file = "../Datasets/dataset-small/nodes-90/nodes-90.pckl"
-#data_file = sys.argv[1]
-#fd = open(data_file, "r")
-#graph = pickle.load(fd);
+outputfile = sys.argv[1] + "_clusters.pckl"
 
-G = nx.Graph()
-#G.add_nodes_from(graph.nodes())
-#G.add_edges_from(graph.edges())
 
 if __name__ == "__main__":
     main()
