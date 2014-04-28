@@ -13,6 +13,7 @@ import datetime
 import math
 from cluster_dbms import Cluster as cl
 import random
+import thresholds as th
 
 def check_and_merge_clusters(index, flag = True):
     global clusters
@@ -305,7 +306,8 @@ def main():
         fdlog.write("Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i) + "\n")
         count += 1
 
-    neighbor_match_th = 0.2 
+    #neighbor_match_th = 0.2
+    neighbor_match_th = float(neighbor_match_th*0.68) 
     total_clusters = len(clusters)
     clusters_before = total_clusters
     clusters_after = 0
@@ -361,9 +363,9 @@ cluster_dict = {}
 hit = 0
 nothit = 0
 neighbor_dict = {}
-jindex_threshold = 0.3
-jindex_groups = 0.75
-neighbor_match_th = 0.3
+jindex_groups = th.jindex_groups
+jindex_threshold = th.jindex_threshold
+neighbor_match_th = th.neighbor_match_th
 
 if len(sys.argv) < 2:
         print "Error: Invalid number of arguments"

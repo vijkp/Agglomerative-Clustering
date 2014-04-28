@@ -16,6 +16,7 @@ import random
 from loadDataGraphLab import startGraphlab
 from loadDataGraphLab import getNeighborlist
 from loadDataGraphLab import getTotalNodes
+import thresholds as th
 
 def check_and_merge_clusters(index, flag = True):
     global clusters
@@ -361,9 +362,9 @@ cluster_dict = {}
 hit = 0
 nothit = 0
 neighbor_dict = {}
-jindex_threshold = 0.3
-jindex_groups = 0.75
-neighbor_match_th = 0.3
+jjindex_groups = th.jindex_groups
+jindex_threshold = th.jindex_threshold
+neighbor_match_th = th.neighbor_match_th
 
 if len(sys.argv) < 3:
         print "Error: Invalid number of arguments"
