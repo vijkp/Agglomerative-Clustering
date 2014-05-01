@@ -363,7 +363,7 @@ cluster_dict = {}
 hit = 0
 nothit = 0
 neighbor_dict = {}
-jjindex_groups = th.jindex_groups
+jindex_groups = th.jindex_groups
 jindex_threshold = th.jindex_threshold
 neighbor_match_th = th.neighbor_match_th
 
