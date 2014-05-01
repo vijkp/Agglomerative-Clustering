@@ -306,7 +306,8 @@ def main(inputfile):
         fdlog.write("Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i) + "\n")
         count += 1
 
-    neighbor_match_th = 0.2 
+    #neighbor_match_th = 0.2
+    neighbor_match_th = float(neighbor_match_th*0.68) 
     total_clusters = len(clusters)
     clusters_before = total_clusters
     clusters_after = 0
