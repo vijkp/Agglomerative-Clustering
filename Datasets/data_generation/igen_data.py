@@ -2,8 +2,9 @@
 """ used to plot graphs for ppt """
 import sys
 import networkx as nx
-import matplotlib.pyplot as plt
 import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 import random
 import math
 import numpy
@@ -161,14 +162,14 @@ fsf.write("total nodes: " + str(total_nodes) + "\n")
 print "total edges:", total_edges
 print "data generation complete"
 
-# Plot graph
-plt.axis('off')
-#position = nx.graphviz_layout(output_graph, prog='sfdp')
-nx.draw_networkx_nodes(output_graph, position, node_size=20, node_color='c') #output_graph.degree().values())
-nx.draw_networkx_edges(output_graph, position, alpha=0.2)
-plt.savefig(dataset_name2 +"/"+ image_name, bbox_inches='tight', dpi=500)
-print "plot saved as ", image_name
-plt.clf()
+if plot_graph:
+    plt.axis('off')
+    position = nx.graphviz_layout(output_graph, prog='sfdp') #, args="-Goverlap=false")
+    nx.draw_networkx_nodes(output_graph, position, node_size=20, node_color='b') #output_graph.degree().values())
+    nx.draw_networkx_edges(output_graph, position, alpha=0.2)
+    plt.savefig(image_name, bbox_inches='tight', dpi=500)
+    print "plot saved as ", image_name
+    plt.clf()
 
 # save csv file
 line = ["id1", "id2"]
