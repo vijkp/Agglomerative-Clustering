@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 MAY 2014 16:42
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 MAY 2014 16:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -335,57 +335,62 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--7
 
  []
 
-<dense-edges.pdf, id=98, 391.4625pt x 240.9pt>
-File: dense-edges.pdf Graphic file (type pdf)
- <use dense-edges.pdf>
-Package pdftex.def Info: dense-edges.pdf used on input line 12.
+<Graphs/dense-edges.pdf, id=98, 391.4625pt x 240.9pt>
+File: Graphs/dense-edges.pdf Graphic file (type pdf)
+
+<use Graphs/dense-edges.pdf>
+Package pdftex.def Info: Graphs/dense-edges.pdf used on input line 12.
 (pdftex.def)             Requested size: 195.73076pt x 120.44969pt.
 
-<sparse-edges.pdf, id=99, 391.4625pt x 240.9pt>
-File: sparse-edges.pdf Graphic file (type pdf)
- <use sparse-edges.pdf>
-Package pdftex.def Info: sparse-edges.pdf used on input line 17.
+<Graphs/sparse-edges.pdf, id=99, 391.4625pt x 240.9pt>
+File: Graphs/sparse-edges.pdf Graphic file (type pdf)
+
+<use Graphs/sparse-edges.pdf>
+Package pdftex.def Info: Graphs/sparse-edges.pdf used on input line 17.
 (pdftex.def)             Requested size: 195.73076pt x 120.44969pt.
 
 Overfull \hbox (2.43332pt too wide) in paragraph at lines 10--20
 []$[]$ $[]$ 
  []
 
-<dense-nodes.pdf, id=100, 391.4625pt x 240.9pt>
-File: dense-nodes.pdf Graphic file (type pdf)
- <use dense-nodes.pdf>
-Package pdftex.def Info: dense-nodes.pdf used on input line 26.
+<Graphs/dense-nodes.pdf, id=100, 391.4625pt x 240.9pt>
+File: Graphs/dense-nodes.pdf Graphic file (type pdf)
+
+<use Graphs/dense-nodes.pdf>
+Package pdftex.def Info: Graphs/dense-nodes.pdf used on input line 26.
 (pdftex.def)             Requested size: 195.73076pt x 120.44969pt.
 
-<sparse-nodes.pdf, id=101, 391.4625pt x 240.9pt>
-File: sparse-nodes.pdf Graphic file (type pdf)
- <use sparse-nodes.pdf>
-Package pdftex.def Info: sparse-nodes.pdf used on input line 31.
+<Graphs/sparse-nodes.pdf, id=101, 391.4625pt x 240.9pt>
+File: Graphs/sparse-nodes.pdf Graphic file (type pdf)
+
+<use Graphs/sparse-nodes.pdf>
+Package pdftex.def Info: Graphs/sparse-nodes.pdf used on input line 31.
 (pdftex.def)             Requested size: 195.73076pt x 120.44969pt.
 
 Overfull \hbox (2.43332pt too wide) in paragraph at lines 24--34
 []$[]$ $[]$ 
  []
 
-<neo4j-sparse-dense.pdf, id=102, 391.4625pt x 240.9pt>
-File: neo4j-sparse-dense.pdf Graphic file (type pdf)
+<Graphs/neo4j-sparse-dense.pdf, id=102, 391.4625pt x 240.9pt>
+File: Graphs/neo4j-sparse-dense.pdf Graphic file (type pdf)
 
-<use neo4j-sparse-dense.pdf>
-Package pdftex.def Info: neo4j-sparse-dense.pdf used on input line 39.
+<use Graphs/neo4j-sparse-dense.pdf>
+Package pdftex.def Info: Graphs/neo4j-sparse-dense.pdf used on input line 39.
 (pdftex.def)             Requested size: 195.73076pt x 120.44969pt.
 
-<graphlab-sparse-dense.pdf, id=103, 391.4625pt x 240.9pt>
-File: graphlab-sparse-dense.pdf Graphic file (type pdf)
+<Graphs/graphlab-sparse-dense.pdf, id=103, 391.4625pt x 240.9pt>
+File: Graphs/graphlab-sparse-dense.pdf Graphic file (type pdf)
 
-<use graphlab-sparse-dense.pdf>
-Package pdftex.def Info: graphlab-sparse-dense.pdf used on input line 44.
+<use Graphs/graphlab-sparse-dense.pdf>
+Package pdftex.def Info: Graphs/graphlab-sparse-dense.pdf used on input line 44
+.
 (pdftex.def)             Requested size: 195.73076pt x 120.44969pt.
 
 Overfull \hbox (2.43332pt too wide) in paragraph at lines 37--47
 []$[]$ $[]$ 
  []
 
-) [6 <./dense-edges.pdf> <./sparse-edges.pdf>]
+) [6 <./Graphs/dense-edges.pdf> <./Graphs/sparse-edges.pdf>]
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ú in font cmr10!
@@ -398,31 +403,31 @@ Missing character: There is no ú in font cmr10!
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ù in font cmr10!
- [7 <./dense-nodes.pdf> <./sparse-nodes.pdf> <./neo4j-sparse-dense.pdf> <./grap
-hlab-sparse-dense.pdf>]
-(./Report.aux) ) 
+ [7 <./Graphs/dense-nodes.pdf> <./Graphs/sparse-nodes.pdf> <./Graphs/neo4j-spar
+se-dense.pdf> <./Graphs/graphlab-sparse-dense.pdf>] (./Report.aux) ) 
 Here is how much of TeX's memory you used:
- 3183 strings out of 493315
- 50345 string characters out of 6137904
+ 3184 strings out of 493315
+ 50520 string characters out of 6137904
  119731 words of memory out of 5000000
  6595 multiletter control sequences out of 15000+600000
  10571 words of font info for 35 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,9n,38p,863b,379s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
-2.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.p
-fb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
-b></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><
-/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></
-usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Report.pdf (7 pages, 4197113 bytes).
+</usr/local
+/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/
+texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/t
+exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
+xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
+live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texli
+ve/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive
+/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2
+013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2013/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on Report.pdf (7 pages, 4197160 bytes).
 PDF statistics:
  160 PDF objects out of 1000 (max. 8388607)
  115 compressed objects within 2 object streams
