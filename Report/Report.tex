@@ -1,0 +1,110 @@
+\documentclass[11pt,onecolumn]{article} 
+\usepackage{latex8}
+\bibliographystyle{latex8}
+%\usepackage{times}	
+\usepackage{graphicx}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
+\usepackage[font={small}]{caption}
+\usepackage{subcaption}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Benchmarking Graph database/processing systems\\for Agglomerative Clustering}
+
+
+% author names and affiliations
+% use a multiple column layout for up to two different
+% affiliations
+
+\author{
+ Ashish Jain\\
+ \textit{ashishjain@cs.umass.edu}\\
+School of Computer Science\\
+University of Massachusetts Amherst\\
+\and
+ Vijay Pasikanti\\
+ \textit{vijaykp@cs.umass.edu}\\
+School of Computer Science\\
+University of Massachusetts Amherst\\
+\and
+Gerome Miklau\\
+\textit{miklau@cs.umass.edu}\\
+School of Computer Science\\
+University of Massachusetts Amherst\\
+}
+% make title
+\maketitle
+
+\begin{abstract}
+Graph data is getting increasingly popular in, e.g. text processing, social networks etc. Over the years it lead to the development of various graph databases and graph processing system. A recent study by [1:??] benchmarks the graph and relational databases. However, according to our knowledge there has been no study on benchmarking the graph databases and graph processing systems to compare their effectiveness.  Therefore our proposal is novel in terms of task. In this paper we take one of the most expensive data mining technique i.e. clustering, to benchmark the two systems. Since personal social networks are big and cluttered, clustering is an effective technique to organize and find out community structure within the social network graphs. We are using Neo4j and GraphLab as our graph database and graph processing system respectively.
+\end{abstract}
+
+
+\textbf{Keywords:} Clustering, graph database, graph processing, Neo4j and GraphLab
+
+\Section{Introduction}
+There has been great deal of discussion recently on the subject of graph processing. With the explosion of social networks like Facebook, Twitter etc and other complex, inter-dependent datasets, graph storage and processing has emerged as one of the new computational challenges in the field of big data. Since the social data with connections between people provides a graph like structure to it, finding efficient ways to process it and discovering close-knit clusters in these networks is of fundamental interest to us.
+\\\\
+Currently, users in Facebook, Google+ and Twitter identify their circles either manually, or in a naïve fashion by identifying friends sharing a common attribute. Here in this paper we study the problem of automatically find communities of related users by utilizing the graph properties. It is based on the intuition that a cluster is a collection of individuals with dense friendships patterns internally and sparse friendship externally. Utilizing such graph properties requires traversal of entire graph and extract out important information during the course of traversal. In this fashion, we would be able to judge the performance of two systems under consideration based on their efficiency of accessing and processing graph network. 
+\\\\
+Based on our clustering technique described in Section?, we will measure the performance of Neo4j and GraphLab in terms of running time over various size and complex structure of datasets. This analysis will help us in understanding whether storing graph like structure in database (Neo4j) provides any significant advantage over dynamically loading the graph from raw file formats and processing it using graph processing system.
+
+\Section{Related Work}
+Hierarchical clustering algorithm has been studied ([1][2][3]) for over decades now. Also there have been many of its successful implementations for various applications ([4][5]). In addition to that, many researchers have evaluated different types of hierarchical algorithms (list of algorithm survey papers) but most of the results were presented on smaller datasets. 
+As social networks gained popularity and datasets became available through various sources like Stanford SNAP library [9], various works on clustering or analyzing social networks has been published [10][11][12]. All of these works used graph like structure stored in simple raw files. However, as the data sizes grow for network graphs, these algorithms are implemented on graph databases and there is a very little literature [6] on the implementation and evaluation of clustering algorithms on large datasets using graph database systems. 
+Some work on performance comparison on the relational and graph databases has been done by [8] but they evaluated different tasks i.e. page ranking and shortest path distance on SNAP social network data. They showed that relational databases perform better in comparison to graph database for the above tasks. However when dealing with social network data, SQL is certainly not a preferred choice. Therefore a comprehensive performance comparison of some popular graph database and graph processing system is required.
+In this paper, we propose a clustering method over a synthetic graph like network. Each node is treated as a person in social network and edges represent relationship with other people in the network. Since it is a synthetic graph, we don’t have node specific properties, therefore we utilize some graph specific properties described in below mention sections.
+
+\Section{Problem Statement}
+This paper addresses the following two problems:
+\begin{itemize}
+\item
+Clustering a synthetic social network graph on graph databases and graph processing systems to detect network communities. For accomplishing this task, we have implemented standard agglomerative clustering with various cluster quality measures to form clusters.
+\item
+We have done performance evaluation of graph databases/processing systems in terms of their time of execution and run-time memory usage while running the clustering algorithms. It will provide benchmark numbers and an opportunity to select an appropriate system.
+\item
+We have also studied the scalability performance of these graph database/processing systems as data grows in orders of magnitude and complexity using clustering as the task.
+\end{itemize}
+
+\input{DataGeneration}
+\input{ClusteringAlgorithm}
+\input{Evaluation}
+\input{Results}
+
+%\Section{References}
+%Some citation ~\cite{IEEEhowto:kopka}
+
+
+% use section* for acknowledgement
+%\section*{Acknowledgment}
+
+
+%The authors would like to thank...
+%more thanks here
+
+\begin{thebibliography}{1}
+\small
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+\bibitem{WillHerb} William H. E. Day, Herbert Edelsbrunner "Efficient algorithms for agglomerative hierarchical clustering methods".
+\bibitem{Chris}Chris Fraley "Algorithms for model-based Gaussian hierarchical clustering".
+\bibitem{CFO}[3] CF Olson "Parallel algorithms for hierarchical clustering".
+\bibitem{SteinKar}M Steinbach, G Karypis, V Kumar "A comparison of document clustering techniques".
+\bibitem{ZhaoKar}Y Zhao, G Karypis "Evaluation of hierarchical clustering algorithms for document
+datasets".
+\bibitem{GuhaRat}S Guha, R Rastogi, K Shim "CURE: an efficient clustering algorithm for large databases".
+\bibitem{McAuLesk}J. McAuley and J. Leskovec. "Learning to Discover Social Circles in Ego Networks".
+\bibitem{benchmark}http://istc-bigdata.org/index.php/benchmarking-graph-databases.
+\bibitem{snap} http://snap.stanford.edu/data/.
+\bibitem{MishraSchrei}N. Mishra, R. Schreiber, I. Stanton, R. Tarjan “Clustering Social Networks”.
+\bibitem{Held}P.Held, K.Dannies “Clustering on Dynamic Social Network Data”.
+
+\end{thebibliography}
+
+\end{document}
+
+

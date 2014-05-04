@@ -1,0 +1,47 @@
+%!Tex root = Report.tex
+\Section{Results}
+\SubSection{Performance}
+This section presents results of performance comparison between Neo4j and GraphLab. Figure \ref{fig:dense-edges} and \ref{fig:sparse-edges} show the comparison between Neo4j and GraphLab with varying size of edges in the dataset. Similar comparison with the number of nodes per dataset is shown in plots \ref{fig:dense-nodes} and \ref{fig:sparse-nodes}. \\
+\\
+Figure \ref{fig:neo4j-sparse-dense} and \ref{fig:graphlab-sparse-dense} show that the execution time for a sparse dataset is always smaller than dense datasets.
+\SubSection{Cluster Purity}
+
+	\begin{figure}
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\includegraphics[scale=0.5]{dense-edges.pdf}
+			\caption{Dense datasets - Neo4j vs GraphLab\label{fig:dense-edges}}
+		\end{minipage}
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\includegraphics[scale=0.5]{sparse-edges.pdf}
+			\caption{Sparse datasets - Neo4j vs GraphLab\label{fig:sparse-edges}}
+		\end{minipage}
+	\end{figure}
+	
+	
+	\begin{figure}
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\includegraphics[scale=0.5]{dense-nodes.pdf}
+			\caption{Dense datasets - Neo4j vs GraphLab\label{fig:dense-nodes}}
+		\end{minipage}
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\includegraphics[scale=0.5]{sparse-nodes.pdf}
+			\caption{Sparse datasets - Neo4j vs GraphLab\label{fig:sparse-nodes}}
+		\end{minipage}
+	\end{figure}
+	
+	\begin{figure}
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\includegraphics[scale=0.5]{neo4j-sparse-dense.pdf}
+			\caption{Neo4j - Dense vs Sparse datasets\label{fig:neo4j-sparse-dense}}
+		\end{minipage}
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\includegraphics[scale=0.5]{graphlab-sparse-dense.pdf}
+			\caption{GraphLab - Dense vs Sparse datasets\label{fig:graphlab-sparse-dense}}
+		\end{minipage}
+	\end{figure}

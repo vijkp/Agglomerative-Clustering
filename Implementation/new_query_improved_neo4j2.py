@@ -372,6 +372,7 @@ if len(sys.argv) < 2:
         print "Usage: ./improved_neo4j2.py outputfile_name"
         exit()
 
+
 outputfile = sys.argv[1] + "_clusters.pckl"
 outputlog = sys.argv[1] + "_result.log"
 

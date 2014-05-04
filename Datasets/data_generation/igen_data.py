@@ -1,4 +1,5 @@
 #!/usr/bin/python
+""" used to plot graphs for ppt """
 import sys
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -35,7 +36,9 @@ def add_edges_to_two_groups(output, group1, group2, edges_to_add, prob):
             if random.random() < prob:
                 output.add_edge(i, j)
 
+template_created = True
 def add_edges_to_groups(output_graph, groups_list, edges_to_add, prob, level):
+    global template_created
     total_groups = len(groups_list)
     edges_per_node = max((3 - level), 1)
     triangle_prob = 0.1*level
@@ -43,6 +46,16 @@ def add_edges_to_groups(output_graph, groups_list, edges_to_add, prob, level):
         random_graph = nx.random_regular_graph(int(total_groups/3), total_groups)
     else:
         random_graph = nx.powerlaw_cluster_graph(total_groups, edges_per_node, triangle_prob, random.random()*10)
+
+    if template_created:
+        template_created = False
+        plt.axis('off')
+        position = nx.graphviz_layout(random_graph, prog='sfdp')
+        nx.draw_networkx_nodes(random_graph, position, node_size=30, node_color='r') #output_graph.degree().values())
+        nx.draw_networkx_edges(random_graph, position, alpha=0.3)
+        plt.savefig(dataset_name2 +"/"+ "template_" + image_name, bbox_inches='tight', dpi=500)
+        print "plot saved as ", image_name
+    
     random_edges = random_graph.edges()
     
     for edge in random_edges:
@@ -80,8 +93,9 @@ else:
     os.makedirs(dataset_name)
     print("Directory {} created".format(dataset_name))
 
+dataset_name2 = dataset_name
 dataset_name = dataset_name + "/" + dataset_name
-image_name = dataset_name + ".png"
+image_name = dataset_name2 + ".png"
 pckl_name = dataset_name + ".pckl"
 hist_name = dataset_name + "-degree_hist.png"
 gl_name = dataset_name + "-gldata.csv"
@@ -94,51 +108,76 @@ fsf.write(str(sys.argv) + "\n")
 
 groups_list = []
 output_graph = nx.Graph()
-
+color_values = []
 for i in range(total_groups):
     groups_list.append(nx.powerlaw_cluster_graph(nodes_per_group, random_edges_per_node, triangle_prob, random.random()*10))
     groups_list[i] = nx.convert_node_labels_to_integers(groups_list[i],first_label=(nodes_per_group*i))
+    temp_array = [i]*nodes_per_group
+    color_values = color_values + temp_array
     output_graph = nx.union(output_graph, groups_list[i])
     print("group{} created".format(i))
 
 #nx.draw(output_graph)
 #plt.show()
 
-edges_to_add = math.ceil(random_edges_per_node/5)
+# Plot graph
+plt.axis('off')
+position = nx.graphviz_layout(output_graph, prog='sfdp')
+nx.draw_networkx_nodes(output_graph, position, node_size=20, node_color=color_values) #output_graph.degree().values())
+nx.draw_networkx_edges(output_graph, position, alpha=0.2)
+plt.savefig(dataset_name2 +"/"+ "1_" + image_name, bbox_inches='tight', dpi=500)
+print "plot saved as ", image_name
+plt.clf()
+
+edges_to_add = math.ceil(random_edges_per_node/2)
 add_edges_to_groups(output_graph, groups_list, edges_to_add, float(input_prob/5), 1) 
-add_edges_to_groups(output_graph, groups_list, edges_to_add, float(input_prob/5), 1) 
+plt.axis('off')
+nx.draw_networkx_nodes(output_graph, position, node_size=20, node_color=color_values) #output_graph.degree().values())
+nx.draw_networkx_edges(output_graph, position, alpha=0.2)
+plt.savefig(dataset_name2 +"/"+ "2_" + image_name, bbox_inches='tight', dpi=500)
+print "plot saved as ", image_name
+plt.clf()
+
 add_edges_to_groups(output_graph, groups_list, edges_to_add, float(input_prob/5), 1) 
 add_edges_to_groups(output_graph, groups_list, edges_to_add, float(input_prob/5), 2) 
 add_edges_to_groups(output_graph, groups_list, edges_to_add, float(input_prob/9), 3) 
+add_edges_to_groups(output_graph, groups_list, edges_to_add, float(input_prob/5), 1) 
+plt.axis('off')
+nx.draw_networkx_nodes(output_graph, position, node_size=20, node_color=color_values) #output_graph.degree().values())
+nx.draw_networkx_edges(output_graph, position, alpha=0.2)
+plt.savefig(dataset_name2 +"/"+ "3_" + image_name, bbox_inches='tight', dpi=500)
+print "plot saved as ", image_name
+plt.clf()
+
 add_edges_to_groups(output_graph, groups_list, edges_to_add, float(input_prob/27), 4) 
 add_edges_to_groups(output_graph, groups_list, edges_to_add, float(input_prob/81), 5) 
 
 total_edges = output_graph.number_of_edges()
 total_nodes = output_graph.number_of_nodes()
-plot_degree_histogram(output_graph, hist_name)
+#plot_degree_histogram(output_graph, hist_name)
 
 fsf.write("total edges: " + str(total_edges) + "\n")
 fsf.write("total nodes: " + str(total_nodes) + "\n")
 print "total edges:", total_edges
 print "data generation complete"
 
-if plot_graph:
-    plt.axis('off')
-    position = nx.graphviz_layout(output_graph, prog='sfdp')
-    nx.draw_networkx_nodes(output_graph, position, node_size=20, node_color='y') #output_graph.degree().values())
-    nx.draw_networkx_edges(output_graph, position, alpha=0.2)
-    plt.savefig(image_name, bbox_inches='tight', dpi=2000)
-    print "plot saved as ", image_name
-    plt.clf()
+# Plot graph
+plt.axis('off')
+#position = nx.graphviz_layout(output_graph, prog='sfdp')
+nx.draw_networkx_nodes(output_graph, position, node_size=20, node_color='c') #output_graph.degree().values())
+nx.draw_networkx_edges(output_graph, position, alpha=0.2)
+plt.savefig(dataset_name2 +"/"+ image_name, bbox_inches='tight', dpi=500)
+print "plot saved as ", image_name
+plt.clf()
 
 # save csv file
 line = ["id1", "id2"]
-outputfd = csv.writer(open(gl_name, 'wb'), delimiter=',', quotechar='|')
-outputfd.writerow(line)
-edges_list = output_graph.edges()
-for line in edges_list:
-    outputfd.writerow(line)
-print ("graphlab data file saved {}".format(gl_name))
+#outputfd = csv.writer(open(gl_name, 'wb'), delimiter=',', quotechar='|')
+#outputfd.writerow(line)
+#edges_list = output_graph.edges()
+#for line in edges_list:
+#    outputfd.writerow(line)
+#print ("graphlab data file saved {}".format(gl_name))
 
 # save graph structures on disk
 f = open(pckl_name, 'w')
