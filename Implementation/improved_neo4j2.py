@@ -181,7 +181,8 @@ def main():
     # Login to database
     graph_db = neo4j.GraphDatabaseService("http://localhost:7474/db/data/")
     total_nodes = graph_db.order
-   
+  
+    fdlog = open(outputlog, "w")
     # Initial seed to start the traversal 
     if total_nodes >= 40:
         random_sample = random.sample(range(total_nodes), 20)
@@ -189,6 +190,7 @@ def main():
         random_sample = random.sample(range(total_nodes), 2)
 
     print "Random nodes to start the graph travresal {}".format(random_sample)
+    fdlog.write("Total nodes in the system: {}\n".format(total_nodes))
     for i in random_sample:
         bfs_queue.put(str(i))
         bfs_index[str(i)] = 1
@@ -232,6 +234,7 @@ def main():
     current_time = datetime.datetime.now()
     time_taken = datetime.timedelta.total_seconds(current_time - start_time)
     print "level-1 completes in {}".format(time_taken)
+    fdlog.write("\nlevel-1 completes in {} seconds\n".format(time_taken)) 
     # Print clusters
     #count = 1
     #for i in clusters:
@@ -243,6 +246,7 @@ def main():
     count = 1
     for i in sortedclusters:
         print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        fdlog.write("Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i) + "\n") 
         count += 1
 
     clusters = sortedclusters
@@ -281,13 +285,14 @@ def main():
     current_time = datetime.datetime.now()
     time_taken = int(datetime.timedelta.total_seconds(current_time - start_time))
     print "level-2 completes in {}".format(time_taken)
-
+    fdlog.write( "\nlevel-2 completes in {} seconds\n".format(time_taken))
     sortedclusters = sorted(clusters, lambda x,y: 1 if len(x)<len(y) else -1 if len(x)>len(y) else 0)
     clusters = sortedclusters
     # Print clusters
     count = 1
     for i in clusters:
         print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        fdlog.write("Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i) + "\n") 
         count += 1
 
     ## combine clusters ever more
@@ -344,10 +349,12 @@ def main():
     current_time = datetime.datetime.now()
     time_taken = int(datetime.timedelta.total_seconds(current_time - start_time))
     print "level-3 completes in {}".format(time_taken)
+    fdlog.write("\nlevel-3 completes in {}\n".format(time_taken))
     # Print clusters
     count = 1
     for i in clusters:
         print "Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i)
+        fdlog.write("Cluster-"+ str(count) + " Total nodes: " + str(len(i)) + " " + str(i) + "\n")
         count += 1
     print "hit: " + str(hit)
     print "nothit: " + str(nothit)
@@ -355,6 +362,7 @@ def main():
     pickle.dump(clusters, f)
     f.close()
     print ("output clusters saveed in pckl file")
+    fdlog.write("\nTotal time of execution: {} seconds\n".format(time_taken))
 
 # Globals
 clusters = []
@@ -372,6 +380,7 @@ if len(sys.argv) < 2:
         exit()
 
 outputfile = sys.argv[1] + ".pckl"
+outputlog = sys.argv[1] + "_result.log"
 # Load graph data from file
 # data_file = "../Datasets/dataset-small/nodes-90/nodes-90.pckl"
 #data_file = sys.argv[1]
