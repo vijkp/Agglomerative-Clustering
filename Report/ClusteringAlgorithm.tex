@@ -1,15 +1,15 @@
 %!Tex root = Report.tex
 \Section{Agglomerative Clustering}
-Agglomerative Clustering is a method of cluster analysis which seeks to build a hierarchy of clusters from "bottom-up" approach. In this approach, each node in the graph starts with a cluster of its own and pairs of clusters are merged as one moves up the hierarchy. In order to decide which clusters should be combined, a measure of similarity between sets of clusters is required. Two measures are used in our work to combine single node clusters and multi-node clusters:
-\SubSection{Structural Similarity Index[?]}
-Let $ G = (V,E,w) $ be a weighted undirected network and $ w(e) $ be the weight of the edge $ e $. For a node $ u \in V $, we define $ w(\{u,u\}) = 1 $. The structure neighborhood of a node $ u $ is the set $ \Gamma(u) $ containing $ u $ and its adjacent nodes which are incident with a common edge with $ u : \Gamma(u) = \{v \in V|\{u,v\} \in E\} \bigcup \{u\}$. The structural similarity between two adjacent nodes $ u $ and $ v $ is then
+Agglomerative Clustering \cite{agglo} is a method of cluster analysis which seeks to build a hierarchy of clusters from "bottom-up" approach. In this approach, each node in the graph starts with a cluster of its own and pairs of clusters are merged as one moves up the hierarchy. In order to decide which clusters should be combined, a measure of similarity between sets of clusters is required. Two measures are used in our work to combine single node clusters and multi-node clusters:
+\SubSection{Structural Similarity Index}
+Let $ G = (V,E,w) $ be a weighted undirected network and $ w(e) $ be the weight of the edge $ e $. For a node $ u \in V $, we define $ w(\{u,u\}) = 1 $. The structure neighborhood of a node $ u $ is the set $ \Gamma(u) $ containing $ u $ and its adjacent nodes which are incident with a common edge with $ u : \Gamma(u) = \{v \in V|\{u,v\} \in E\} \bigcup \{u\}$. The structural similarity \cite{shrink} between two adjacent nodes $ u $ and $ v $ is then
 	
 	$$\large \sigma (u,v) = \frac{\sum_{x \epsilon \in (u)\cap \in (v)} w(u,x).w(v,x))}{\sqrt{\sum_{x\epsilon \in (u)}w^2(u,x)}\sqrt{\sum_{x\epsilon \in (v)}w^2(v,x)}}$$
 	
 	The above structural similarity index can be replaced by other similarity definitions such as Jaccard similarity. Our internal testing results showed that the structural similarity index is better.
 
-\SubSection{Clustering Coefficient[?]}
-Clustering coefficient is a measure of degree to which nodes in a graph tend to cluster together. Our study of social network graphs suggested that nodes in communities with higher clustering coefficient tend to have high edges per node and are tightly connected.\\
+\SubSection{Clustering Coefficient}
+Clustering coefficient \cite{clustcoeff} is a measure of degree to which nodes in a graph tend to cluster together. Our study of social network graphs suggested that nodes in communities with higher clustering coefficient tend to have high edges per node and are tightly connected.\\
 	Let $ G = (V,E,w)$ be a graph consists of a set of vertices $ V $ and set of edges $ E $ between them. An edge $ e_{ij} $ connects vertex $ v_i $ with vertex $ v_j $. The neighborhood $ N_i $ for a vertex $ v_i $ is defined as its immediately connected neighbors as follows: 
 	$$ N_i = \{ v_j: e_{ij} \in E \wedge e_{ij} \in E \}$$
 	The local clustering coefficient $ C_i $ for a vertex $ v_i $ is then given by the proportion of links between the vertices within its neighborhood divided by the number of links that could possibly exist between them. An undirected graph has the property that $ e_ij $ and $ e_ji $ are considered identical. Therefore, if a vertex $ v_i $ has $ k_i $ neighbors then $ k_i(k_i - 1)/2 $ edges could exist among the vertices within the neighborhood. Therefore, local clustering coefficient for directed graphs: 
@@ -19,7 +19,7 @@ Clustering coefficient is a measure of degree to which nodes in a graph tend to 
 
 
 \Section{Implementation}
-Clustering algorithm is implemented in python using two pass approach and has two separate interfaces for Neo4j and GraphLab for querying node information. Each pass is described below.
+Clustering algorithm is implemented in python using two pass approach and has two separate interfaces for Neo4j \cite{neo4j} and GraphLab \cite{graphlab} for querying node information. Each pass is described below.
 \begin{itemize}
 	\item
 	\textbf{First pass}: Start breadth first search with 20 randomly sampled nodes from the database. Request neighbor list of each node using queries provided by Neo4j and Graphlab. As we get neighbor list of a node, calculate structural similarity index of the node with respect to already processed nodes and if similarity index is more than a tuned value of index threshold, combine the nodes into a cluster. This is repeated with each node as soon as we get its neighbor list. Query used for requesting neighbor list:
