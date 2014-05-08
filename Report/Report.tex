@@ -77,11 +77,12 @@ We have also studied the scalability performance of these graph database/process
 \input{Evaluation}
 \input{Results}
 
-\Section{Conclusion and Future Work}
+\Section{Conclusion}
 \begin{itemize}
 \item As we can observe from the above results for synthetic data, GraphLab outperforms Neo4j on almost all datasets. However there is not huge difference between the performance of the two systems. Neo4j's performance is very close to GraphLab's.
-\item As data scales up, absolute difference between times of execution of Neo4j and GraphLab increases but relative difference between them decreases. For big data processing tasks where the whole data doesn't fit into memory, graph databases are the clear choice.
+\item As data scales up, absolute difference between times of execution of Neo4j and GraphLab increases but relative difference between them decreases. For big data processing tasks where the whole data doesn't fit into memory, graph databases (Neo4j) are the clear choice.
 \item The tests on small dataset of Facebook shows robustness of our implementation. We were able to identify communities within the real world social network data to quite an extent with very little noise.
+\item We conclude that Neo4j provides a good combination of persistent storage and computational power. If we do not consider the high cost of loading data into the Neo4j, it is comparable to GraphLab in graph processing performance. However, we haven't explored the multiprocessing aspect of these two systems, which would be an interesting future work.
 \end{itemize}
 \begin{thebibliography}{1}
 \small

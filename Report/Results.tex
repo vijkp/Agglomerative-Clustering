@@ -3,12 +3,12 @@
 \SubSection{Performance}
 This section presents results of performance comparison between Neo4j and GraphLab. 
 \begin{itemize}
-\item Figure \ref{fig:dense-edges} and \ref{fig:sparse-edges} show the comparison between Neo4j and GraphLab with varying size of edges in the dataset. GraphLab performs better than Neo4j over the entire range of dataset generated.
-\item Similar comparison with the number of nodes per dataset is shown in plots \ref{fig:dense-nodes} and \ref{fig:sparse-nodes}.
-\item Figure \ref{fig:neo4j-sparse-dense} and \ref{fig:graphlab-sparse-dense} show that the execution time for a sparse dataset is always smaller than dense datasets.
+\item Figure \ref{fig:dense-edges} and \ref{fig:sparse-edges} show the comparison between Neo4j and GraphLab with varying number of edges in the dataset. GraphLab performs better than Neo4j over the entire range of dataset generated.
+\item Similar comparison with the number of nodes per dataset is shown in plots \ref{fig:dense-nodes} and \ref{fig:sparse-nodes}. Over the small dataset, the relative difference between GraphLab and Neo4j is high, however it reduces as the data scales up.
+\item Figure \ref{fig:neo4j-sparse-dense} and \ref{fig:graphlab-sparse-dense} show that the execution time for a sparse dataset is always smaller than dense datasets. This is expected because dense graphs have high number of neighbors which lead to higher query processing time.
 \end{itemize}
 \SubSection{Cluster Purity}
-This section introduces one of the external criteria of clustering quality. Purity is a simple and transparent evaluation measure. To compute purity, each cluster is assigned to the class which is most frequent in the cluster, and then the accuracy of this assignment is measured by counting the number of correctly assigned documents and dividing by N. Here, class is the set of clusters we already know in the synthetic input data for clustering. Formally
+This section introduces one of the external criteria of clustering quality. Purity is a simple and transparent evaluation measure. To compute purity, each cluster is assigned to the class which is most frequent in the cluster, and then the accuracy of this assignment is measured by counting the number of correctly assigned documents and dividing by N. Here, class is the set of clusters we already know in the synthetic input data for clustering and N is the total number of nodes in the graph. Formally
 \begin{equation}
 purity(\Omega, C ) = \frac{1}{N}\sum_{k} max_{j}|w_{k} \bigcap c_{j}|
 \end{equation}
@@ -96,14 +96,14 @@ This section presents clustering performance of real world social network Facebo
 	Cluster-5 Nodes:316\\
 	Cluster-6 Nodes:211\\
 	Cluster-7 Nodes:21\\
-	Cluster-8 Nodes:10\\	
+	Cluster-8 Nodes:10	
 \end{itemize}
-\begin{figure}[H]
+\begin{figure}
 	\centering
 	\includegraphics[scale=0.4, trim=0 0 20 0]{Images/before_facebook.pdf}
 	\caption{Facebook Dataset - Before Clustering\label{fig:fb-before}}
 \end{figure}
-\begin{figure}[H]
+\begin{figure}
 	\centering
 	\includegraphics[scale=0.4, trim=0 0 20 0]{Images/after_facebook.pdf}
 	\caption{Facebook Dataset - After Clustering (Neo4j/GraphLab)\label{fig:fb-after}}
