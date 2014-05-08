@@ -54,7 +54,7 @@ Currently, users in Facebook, Google+ and Twitter identify their circles either 
 Based on our clustering technique described in Section 5, we will measure the performance of Neo4j and GraphLab in terms of running time over various size and complex structure of datasets. This analysis will help us in understanding whether storing graph like structure in database (Neo4j) provides any significant advantage over dynamically loading the graph from raw file formats and processing it using graph processing system.
 
 \Section{Related Work}
-Hierarchical clustering algorithm has been studied (\cite{WillHerb}\cite{Chris}\cite{CFO}) for over decades now. Also there have been many of its successful implementations for various applications (\cite{SteinKar}\cite{ZhaoKar}). In addition to that, many researchers have evaluated different types of hierarchical algorithms (list of algorithm survey papers) but most of the results were presented on smaller datasets. 
+Hierarchical clustering algorithm has been studied (\cite{WillHerb}\cite{Chris}\cite{CFO}) for over decades now. Also there have been many of its successful implementations for various applications (\cite{SteinKar}\cite{ZhaoKar}). In addition to that, many researchers have evaluated different types of hierarchical algorithms but most of the results were presented on smaller datasets. 
 As social networks gained popularity and datasets became available through various sources like Stanford SNAP library \cite{snap}, various works on clustering or analyzing social networks has been published \cite{MishraSchrei}\cite{Held}. All of these works used graph like structure stored in simple raw files. However, as the data sizes grow for network graphs, these algorithms are implemented on graph databases and there is a very little literature \cite{GuhaRat} on the implementation and evaluation of clustering algorithms on large datasets using graph database systems. 
 Some work on performance comparison on the relational and graph databases has been done by \cite{benchmark} but they evaluated different tasks i.e. page ranking and shortest path distance on SNAP social network data. They showed that relational databases perform better in comparison to graph database for the above tasks. However when dealing with social network data, SQL is certainly not a preferred choice. Therefore a comprehensive performance comparison of some popular graph database and graph processing system is required.
 In this paper, we propose a clustering method over a synthetic graph like network. Each node is treated as a person in social network and edges represent relationship with other people in the network. Since it is a synthetic graph, we don’t have node specific properties, therefore we utilize some graph specific properties described in below mention sections.
@@ -75,6 +75,12 @@ We have also studied the scalability performance of these graph database/process
 \input{Evaluation}
 \input{Results}
 
+\Section{Conclusion and Future Work}
+\begin{itemize}
+\item As we can observe from the above results for synthetic data, GraphLab outperforms Neo4j almost on all dataset. However there is not huge difference between the performance of the two systems.
+\item As data scales up, absolute difference between times of execution increases but relative difference decreases.
+\item The tests on small dataset of Facebook shows robustness of our implementation. We were able to identify communities within the real world social network data to quite an extent, however some noise is still there.
+\end{itemize}
 \begin{thebibliography}{1}
 \small
 \bibitem{WillHerb} William H. E. Day, Herbert Edelsbrunner "Efficient algorithms for agglomerative hierarchical clustering methods".

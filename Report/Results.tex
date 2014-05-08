@@ -1,12 +1,27 @@
 %!Tex root = Report.tex
 \Section{Results}
 \SubSection{Performance}
-This section presents results of performance comparison between Neo4j and GraphLab. Figure \ref{fig:dense-edges} and \ref{fig:sparse-edges} show the comparison between Neo4j and GraphLab with varying size of edges in the dataset. Similar comparison with the number of nodes per dataset is shown in plots \ref{fig:dense-nodes} and \ref{fig:sparse-nodes}. \\
-\\
-Figure \ref{fig:neo4j-sparse-dense} and \ref{fig:graphlab-sparse-dense} show that the execution time for a sparse dataset is always smaller than dense datasets.
+This section presents results of performance comparison between Neo4j and GraphLab. 
+\begin{itemize}
+\item Figure \ref{fig:dense-edges} and \ref{fig:sparse-edges} show the comparison between Neo4j and GraphLab with varying size of edges in the dataset. GraphLab performs better than Neo4j over the entire range of dataset generated.
+\item Similar comparison with the number of nodes per dataset is shown in plots \ref{fig:dense-nodes} and \ref{fig:sparse-nodes}.
+\item Figure \ref{fig:neo4j-sparse-dense} and \ref{fig:graphlab-sparse-dense} show that the execution time for a sparse dataset is always smaller than dense datasets.
+\end{itemize}
 \SubSection{Cluster Purity}
+This section introduces one of the external criteria of clustering quality. Purity is a simple and transparent evaluation measure. To compute purity, each cluster is assigned to the class which is most frequent in the cluster, and then the accuracy of this assignment is measured by counting the number of correctly assigned documents and dividing by N. Here, class is the set of clusters we already know in the synthetic input data for clustering. Formally
+\begin{equation}
+purity(\Omega, C ) = \frac{1}{N}\sum_{k} max_{j}|w_{k} \bigcap c_{j}|
+\end{equation}
+where $\Omega = \{w_{1}, w_{2},....,w_{k}\}$ is the set of clusters and $C=\{c_{1},c_{2},...,c{j}\}$ is the set of classes.
+High purity is easy to achieve when the number of clusters is large - in particular, purity is 1 if each document gets its own cluster. However, we are getting number of resulting clusters almost equal to the number of gold standard clusters. Hence this measure is reasonable here to judge performance of our clustering algorithm.\\
+\textbf{NOTE:} We know the number of actual clusters in the synthetic data generated from networkx. Therefore we will call it as gold standard data.
 
-
+\begin{itemize}
+\item Performance of our implementation is better on dense graph as compared to sparse graph, which is expected considering nodes are scattered in sparse graph.
+\item Average clustering purity for dense graph having number of edges $> 200,000$ is $0.92$.
+\item Average clustering purity for sparse graph having number of edges $> 200,000$ is $0.84$.
+\item For smaller datasets having edge counts between $20,000$ to $100,000$, we are achieving nearly perfect clustering. Clustering coefficient for them is $>0.98$ with same number of clusters/ classes in output as in the gold data.
+\end{itemize}
 
 	\begin{figure}
 		\begin{minipage}{.5\textwidth}
@@ -52,7 +67,7 @@ Figure \ref{fig:neo4j-sparse-dense} and \ref{fig:graphlab-sparse-dense} show tha
 \SubSection{Clustering on real world dataset: Facebook}
 This section presents clustering performance of real world social network Facebook \cite{facebookdata} from Stanford Large Network Dataset Collection \cite{snap}.\\
 \\
-Facebook Dataset Details:
+\textbf{Facebook Dataset Details:}
 \begin{itemize}
 	\item
 	Nodes: 4039
@@ -64,14 +79,16 @@ Facebook Dataset Details:
 	Number of triangles:	1612010
 \end{itemize}
 \noindent
-Facebook Dataset Results:
+\textbf{Facebook Dataset Results:}
 \begin{itemize}
 	\item
 	Total number of clusters detected: 8
 	\item
-	Total Execution Time: 9.5 minutes
+	Total Execution Time (Neo4j): 11.3 minutes
 	\item
-	List of clusters:\\
+	Total Execution Time (GraphLab): 9.5 minutes
+	\item
+	List of clusters with number of nodes in them:\\
 	Cluster-1 Nodes:1368\\
 	Cluster-2 Nodes:770\\
 	Cluster-3 Nodes:753\\
@@ -89,5 +106,5 @@ Facebook Dataset Results:
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4, trim=0 0 20 0]{Images/after_facebook.pdf}
-	\caption{Facebook Dataset - After Clustering\label{fig:fb-after}}
+	\caption{Facebook Dataset - After Clustering (Neo4j/GraphLab)\label{fig:fb-after}}
 \end{figure}

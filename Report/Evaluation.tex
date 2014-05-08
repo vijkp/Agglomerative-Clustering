@@ -1,7 +1,7 @@
 %!Tex root = Report.tex
 \Section{Evaluation}
 \SubSection{Datasets}
-As mentioned before datasets are generated using \texttt{networkx} library and there are two types of datasets, one sparse and two dense. Sparsity is measured based on the clustering coefficient of the graphg. Sparse random graphs have a small clustering coefficient while the dense graphs have large clustering coefficient.\\
+As mentioned before datasets are generated using \texttt{networkx} library and there are two types of datasets, one sparse and two dense. Sparsity is measured based on the clustering coefficient of the graph. Sparse random graphs have a small clustering coefficient while the dense graphs have large clustering coefficient.\\
 \\
 We have created six groups of datasets each with two graph datasets with a fixed number of edges. One graph is a sparse graph while the other one is dense. Below is the table of all the datasets generated for testing.
 \begin{table}[h]
@@ -17,18 +17,15 @@ We have created six groups of datasets each with two graph datasets with a fixed
 		6                             & 1,000,000                        & 40,000                             & 91,000                             \\ \hline
 	\end{tabular}
 \end{table}
-The following graph shows the distribution of nodes with respect to their degree for each node\\
-?? include a graph of the ??
+The \textbf{average degree distribution} for the sparse graph is 12 edges/node while for dense graph is 25 edges/node.
 \SubSection{Setup}
-The following are the set of machines used for testing. 
+The following are the set of machines used for evaluation: 
 \begin{itemize}
 	\item
-	Neo4j: Amazon EC2 instance with 2 vCPUs and 7.5GB memory with 20GB disk space.
+	Neo4j: Amazon EC2 instance with 4 vCPUs and 7.5GB memory with 20GB disk space.
 	\item
 	GraphLab: Amazon EC2 instance with 4 vCPUs and 7.5GB memory with 20GB disk space.
 \end{itemize}
-\SubSection{Testing and measurements}
-\begin{enumerate}
-	\item
-	\textbf{Execution time:} All the above datasets are run on both Neo4j and GraphLab systems. Time of execution is calculated starting from the beginning of the clustering algorithm till the end. Execution time does not include the time taken for the dataset to load into the database systems. On an another note, GraphLab is a graph processing system which loads the dataset into memory and is really quick, for example, a dataset of 100,000 edges takes around half a second to load into memory, whereas Neo4j stores each node in its database on a persistent storage.
-\end{enumerate}
+\SubSection{Evaluation Measure}
+All the above datasets are run on both Neo4j and GraphLab systems and performance evaluation is done using \textbf{Execution Time}. Time of execution is calculated starting from the beginning of the clustering algorithm till the end. \\
+Execution time does not include the time taken for the dataset to load into the database systems. On an another note, GraphLab is a graph processing system which loads the dataset into memory and is really quick, for example, a dataset of 100,000 edges takes around 5 seconds to load into memory, whereas Neo4j stores each node in its database on a persistent storage. Therefore it takes quite a long time as compared to GraphLab.
