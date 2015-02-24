@@ -66,7 +66,17 @@ High purity is easy to achieve when the number of clusters is large - in particu
 
 \SubSection{Clustering on real world dataset: Facebook}
 This section presents clustering performance of real world social network Facebook \cite{facebookdata} from Stanford Large Network Dataset Collection \cite{snap}.\\
-\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4, trim=0 0 20 0]{Images/before_facebook.pdf}
+	\caption{Facebook Dataset - Before Clustering\label{fig:fb-before}}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4, trim=0 0 20 0]{Images/after_facebook.pdf}
+	\caption{Facebook Dataset - After Clustering (Neo4j/GraphLab)\label{fig:fb-after}}
+\end{figure}
+
 \textbf{Facebook Dataset Details:}
 \begin{itemize}
 	\item
@@ -79,6 +89,7 @@ This section presents clustering performance of real world social network Facebo
 	Number of triangles:	1612010
 \end{itemize}
 \noindent
+
 \textbf{Facebook Dataset Results:}
 \begin{itemize}
 	\item
@@ -97,14 +108,8 @@ This section presents clustering performance of real world social network Facebo
 	Cluster-6 Nodes:211\\
 	Cluster-7 Nodes:21\\
 	Cluster-8 Nodes:10	
+	\item
+	Figure \ref{fig:fb-before} shows the graph of unclustered Facebook dataset.
+	\item
+	Figure \ref{fig:fb-after} shows the graph clusters with each color representing one cluster.
 \end{itemize}
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.4, trim=0 0 20 0]{Images/before_facebook.pdf}
-	\caption{Facebook Dataset - Before Clustering\label{fig:fb-before}}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.4, trim=0 0 20 0]{Images/after_facebook.pdf}
-	\caption{Facebook Dataset - After Clustering (Neo4j/GraphLab)\label{fig:fb-after}}
-\end{figure}
