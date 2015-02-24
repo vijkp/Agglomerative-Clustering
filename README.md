@@ -2,8 +2,8 @@ Benchmarking Graph database/processing systems for Agglomerative Clustering
 ===========================================================================
 Graph data is getting increasingly popular in, e.g. text processing, social 
 networks etc. Over the years it has lead to the development of various graph 
-databases and graph processing systems. A recent study by [8] benchmarks the 
-graph and relational databases. However, according to our knowledge there 
+databases and graph processing systems. A recent studies benchmark graph 
+and relational databases. However, according to our knowledge there 
 has been no study on benchmarking graph databases and graph processing 
 systems to compare their performance. Therefore our proposal is novel in 
 terms of a benchmark study. In this paper we take one of the most expensive
